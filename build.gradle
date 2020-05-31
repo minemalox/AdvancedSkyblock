@@ -1,14 +1,38 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
-import groovy.json.*
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = 'http://repo.spongepowered.org/maven' }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.4'
+        classpath "io.franzbecker:gradle-lombok:4.0.0"
+    }
+}
 
 plugins {
     id 'java'
-    id 'net.minecraftforge.gradle.forge' version '2.1-SNAPSHOT'
-    id 'io.franzbecker.gradle-lombok' version '3.3.0'
-    id 'com.github.johnrengelman.shadow' version '4.0.4'
 }
 
-group= 'codes.biscuit'
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: "io.franzbecker.gradle-lombok"
+apply plugin: 'idea'
+idea {
+    module {
+        inheritOutputDirs = true
+    }
+}
+
+
+group = 'dev.minemalox.advancedskyblock'
 
 // Java plugin settings
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -16,18 +40,22 @@ targetCompatibility = JavaVersion.VERSION_1_8
 compileJava.options.encoding = 'UTF-8'
 
 minecraft {
-    version = "${project.minecraftVersion}-${project.forgeVersion}"
-    runDir = "run"
 
-    mappings = "${project.mappings}"
+    //mappings channel: 'snapshot', version: project.mappings
+    mappings channel: 'snapshot', version: '20180814-1.12'
+    accessTransformer = file('src/main/resources/META-INF/advancedskyblock_at.cfg')
 
-    // Replace placeholders in source code
-    replace("@MOD_ID@": project.modId,
-            "@MOD_NAME@": project.modName,
-            "@VERSION@": project.version,
-            "@MOD_ACCEPTED@": project.acceptedMinecraftVersions,
-            "@UPDATE_JSON@": project.updateJSON)
-    replaceIn("${project.modName}.java")
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            property 'fml.coreMods.load', 'dev.minemalox.advancedskyblock.AdvancedSkyblockLoadingPlugin'
+
+        }
+    }
+
 }
 
 repositories {
@@ -35,21 +63,31 @@ repositories {
         name 'JitPack'
         url 'https://jitpack.io'
     }
+    mavenCentral()
+    maven { url = 'https://repo.spongepowered.org/maven' }
 }
 
 dependencies {
-    // Fork of Discord RPC for Java https://github.com/BiscuitDevelopment/DiscordIPC
+    minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2854'
+
     implementation('com.github.BiscuitDevelopment:DiscordIPC:139c9d6') {
         exclude module: 'gson'
+    }
+
+    compile 'org.spongepowered:mixin:0.8.1-SNAPSHOT'
+}
+
+sourceSets {
+    main {
+        ext.refMap = "mixins.advancedskyblock.refmap.json"
     }
 }
 
 jar {
-    // Set the archive name here instead of in shadowJar because ForgeGradle needs it when re-obfuscating the jar.
-    archiveName = project.modName + "-" + minecraft.version + "-" + version + ".jar"
-    // Disable the default jar task and use shadowJar instead to shade the libraries into the jar.
-    enabled = false
+    baseName = project.modName + "-" + project.minecraftVersion + "-" + version + ".jar"
+    // enabled = false
 }
+
 
 shadowJar {
     archiveName = tasks.jar.archiveName
@@ -57,58 +95,22 @@ shadowJar {
 
     manifest.attributes(
             'Main-Class': 'OpenErrorMessage',
-            'FMLCorePlugin': "${project.group}.${project.modId}.tweaker.${project.modName}LoadingPlugin",
-            'ForceLoadAsMod': true,
-            'FMLCorePluginContainsFMLMod': true,
             'ModSide': 'CLIENT',
+            'MixinConfigs': 'mixins.advancedskyblock.json',
+            'FMLCorePluginContainsFMLMod': true,
+            'FMLCorePlugin': 'dev.minemalox.advancedskyblock.AdvancedSkyblockLoadingPlugin',
+            'ForceLoadAsMod': true,
+            'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
             'FMLAT': "${project.modId}_at.cfg"
     )
 
-    exclude('dummyThing')
-    exclude('META-INF/maven/')
-    exclude('META-INF/nar/')
-    exclude('module-info.class')
-    exclude('META-INF/versions/')
+    exclude 'dummyThing'
+    exclude 'META-INF/maven/'
+    exclude 'META-INF/nar/'
+    exclude 'module-info.class'
+    exclude 'META-INF/versions/'
 
     minimize()
-}
-
-processResources {
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
-}
-
-// If you're in a dev environment, you need to run this task before running Minecraft.
-task processResourcesDev(type: Copy) {
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-
-    // copy everything else that's not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
-    into sourceSets.main.java.outputDir
 }
 
 task relocateShadowJar(type: ConfigureShadowRelocation) {
@@ -117,30 +119,9 @@ task relocateShadowJar(type: ConfigureShadowRelocation) {
 }
 
 shadowJar.dependsOn tasks.relocateShadowJar
+tasks.build.dependsOn(shadowJar)
 
-// Updates the version JSON file automatically when the version changes
-// Don't forget to write the changelog! Those aren't automatic.
-task updateVersionsFile {
-    def versionsFile = new File(".github/versions/dev-versions.json")
-
-    def jsonBuilder = new JsonBuilder(new JsonSlurper().parse(versionsFile))
-    def versionsMap = jsonBuilder.content."1.8.9"
-
-    jsonBuilder.content.promos."1.8.9-latest" = version.toString()
-
-    // Update the versions list if it doesn't have the current version.
-    if (!versionsMap.containsKey(version)) {
-        versionsMap.put(version, "<Insert Changelog Here>")
-        versionsMap = versionsMap.sort(Comparator.reverseOrder())
-        jsonBuilder.content."1.8.9" = versionsMap
-    }
-
-    versionsFile.write(jsonBuilder.toPrettyString())
-}
-
-tasks.build.dependsOn(updateVersionsFile)
-tasks.reobfJar.dependsOn(tasks.shadowJar)
-
+// tasks.reobfJar.dependsOn(tasks.shadowJar)
 //reobf { // Only for labymod client.
 //    jar {
 //        useNotchSrg()

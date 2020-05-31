@@ -60,7 +60,7 @@ For Contributors
 
 1. Make sure to add this VM argument to your debug configuration or your IDE's equivalent, so that all the transformers
 are applied properly in your dev environment!
-```-Dfml.coreMods.load=codes.biscuit.skyblockaddons.tweaker.SkyblockAddonsLoadingPlugin```
+```-Dfml.coreMods.load=SkyblockAddonsLoadingPlugin```
 2. Set the Gradle task ```processResourcesDev``` to run every time before launching the Minecraft client from
  your dev environment. This is required for the mod assets to load properly in the dev environment.
 3. This project uses Lombok, which helps with things such as not having to manually create Getters and 

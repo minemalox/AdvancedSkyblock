@@ -1,4 +1,4 @@
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
