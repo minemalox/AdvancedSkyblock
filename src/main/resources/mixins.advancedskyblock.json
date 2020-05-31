@@ -1,0 +1,36 @@
+{
+  "package": "dev.minemalox.advancedskyblock.asm.mixin",
+  "refmap": "mixins.advancedskyblock.refmap.json",
+  "compatibilityLevel": "JAVA_8",
+  "verbose": true,
+  "minVersion": "0.8",
+  "mixins": [
+    "EntityLivingBaseMixin",
+    "EntityPlayerSPMixin",
+    "EntityRendererMixin",
+    "FontRendererMixin",
+    "GuiChestMixin",
+    "GuiContainerMixin",
+    "GuiDisconnectedMixin",
+    "GuiIngameMenuMixin",
+    "GuiIngameMixin",
+    "GuiNewChatMixin",
+    "GuiScreenMixin",
+    "InventoryPlayerMixin",
+    "ItemMixin",
+    "MinecraftMixin",
+    "MouseHelperMixin",
+    "NetHandlerPlayClientMixin",
+    "PlayerControllerMPMixin",
+    "RenderDragonMixin",
+    "RenderEndermanMixin",
+    "RenderItemMixin",
+    "RenderLivingBaseMixin",
+    "RenderManagerMixin",
+    "SoundManagerMixin",
+    "TileEntityEnderChestRendererMixin"
+  ],
+  "injectors": {
+    "maxShiftBy": 2
+  }
+}
