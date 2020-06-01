@@ -4,7 +4,6 @@ import dev.minemalox.advancedskyblock.AdvancedSkyblock;
 import dev.minemalox.advancedskyblock.gui.buttons.ButtonLocation;
 import dev.minemalox.advancedskyblock.listeners.PlayerListener;
 import dev.minemalox.advancedskyblock.listeners.RenderListener;
-import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiPlayerTabOverlay;
 import net.minecraft.util.text.ITextComponent;
@@ -26,7 +25,6 @@ public class TabEffectManager {
     /**
      * The main TabEffectManager instance.
      */
-    @Getter
     private static final TabEffectManager instance = new TabEffectManager();
 
     /**
@@ -40,11 +38,9 @@ public class TabEffectManager {
      * <p>
      * Both return a list of dummy Potion or Powerup timers.
      */
-    @Getter
     private static final List<TabEffect> dummyPotionTimers = Arrays.asList(
             new TabEffect("§r§ePotion Effect II ", "12:34"),
             new TabEffect("§r§aEnchanting XP Boost III ", "1:23:45"));
-    @Getter
     private static final List<TabEffect> dummyPowerupTimers = Collections.singletonList(
             new TabEffect("§r§bHoming Snowballs ", "1:39"));
     /**
@@ -57,9 +53,7 @@ public class TabEffectManager {
      * <p>
      * Both return a list of current Potion or Powerup timers. They can be empty, but are never null.
      */
-    @Getter
     private List<TabEffect> potionTimers = new ArrayList<>();
-    @Getter
     private List<TabEffect> powerupTimers = new ArrayList<>();
 
     /**
@@ -68,6 +62,18 @@ public class TabEffectManager {
     private static ITextComponent getFooter() {
         GuiPlayerTabOverlay guiTab = Minecraft.getMinecraft().ingameGUI.getTabList();
         return guiTab.footer;
+    }
+
+    public static TabEffectManager getInstance() {
+        return TabEffectManager.instance;
+    }
+
+    public static List<TabEffect> getDummyPotionTimers() {
+        return TabEffectManager.dummyPotionTimers;
+    }
+
+    public static List<TabEffect> getDummyPowerupTimers() {
+        return TabEffectManager.dummyPowerupTimers;
     }
 
     /**
@@ -134,5 +140,13 @@ public class TabEffectManager {
             Collections.sort(potionTimers);
             Collections.sort(powerupTimers);
         }
+    }
+
+    public List<TabEffect> getPotionTimers() {
+        return this.potionTimers;
+    }
+
+    public List<TabEffect> getPowerupTimers() {
+        return this.powerupTimers;
     }
 }

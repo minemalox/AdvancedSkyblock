@@ -1,9 +1,7 @@
 package dev.minemalox.advancedskyblock.utils;
 
 import dev.minemalox.advancedskyblock.utils.nifty.ChatFormatting;
-import lombok.Getter;
 
-@Getter
 public class GuiFeatureData {
 
     private ChatFormatting defaultColor = null;
@@ -53,5 +51,29 @@ public class GuiFeatureData {
         this.defaultAnchor = defaultAnchor;
         this.colorsRestricted = colorsRestricted;
         this.defaultPos = new CoordsPair(position[0], position[1]);
+    }
+
+    public ChatFormatting getDefaultColor() {
+        return this.defaultColor;
+    }
+
+    public CoordsPair getDefaultPos() {
+        return this.defaultPos;
+    }
+
+    public CoordsPair getDefaultBarSize() {
+        return this.defaultBarSize;
+    }
+
+    public EnumUtils.AnchorPoint getDefaultAnchor() {
+        return this.defaultAnchor;
+    }
+
+    public EnumUtils.DrawType getDrawType() {
+        return this.drawType;
+    }
+
+    public boolean isColorsRestricted() {
+        return this.colorsRestricted;
     }
 }

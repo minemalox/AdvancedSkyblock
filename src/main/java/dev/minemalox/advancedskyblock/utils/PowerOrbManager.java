@@ -1,7 +1,5 @@
 package dev.minemalox.advancedskyblock.utils;
 
-import lombok.Getter;
-
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,9 +21,12 @@ public class PowerOrbManager {
     /**
      * The PowerOrbManager instance.
      */
-    @Getter
     private static final PowerOrbManager instance = new PowerOrbManager();
     private Map<PowerOrb, Entry> powerOrbEntryMap = new HashMap<>();
+
+    public static PowerOrbManager getInstance() {
+        return PowerOrbManager.instance;
+    }
 
     /**
      * Put any detected orb into the list of active orbs.
@@ -51,7 +52,6 @@ public class PowerOrbManager {
         return max.map(Map.Entry::getValue).orElse(null);
     }
 
-    @Getter
     public static class Entry {
         /**
          * The PowerOrb type.
@@ -69,6 +69,18 @@ public class PowerOrbManager {
             this.powerOrb = powerOrb;
             this.seconds = seconds;
             this.timestamp = System.currentTimeMillis();
+        }
+
+        public PowerOrb getPowerOrb() {
+            return this.powerOrb;
+        }
+
+        public int getSeconds() {
+            return this.seconds;
+        }
+
+        public long getTimestamp() {
+            return this.timestamp;
         }
     }
 

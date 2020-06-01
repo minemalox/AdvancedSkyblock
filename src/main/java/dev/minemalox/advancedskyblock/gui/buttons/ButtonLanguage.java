@@ -4,7 +4,6 @@ import dev.minemalox.advancedskyblock.AdvancedSkyblock;
 import dev.minemalox.advancedskyblock.utils.Feature;
 import dev.minemalox.advancedskyblock.utils.Language;
 import dev.minemalox.advancedskyblock.utils.Message;
-import dev.minemalox.advancedskyblock.utils.nifty.reflection.MinecraftReflection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
@@ -51,7 +50,7 @@ public class ButtonLanguage extends GuiButton {
                 fontColor = new Color(255, 255, 160, 255).getRGB();
             }
             main.getConfigValues().loadLanguageFile(language);
-            MinecraftReflection.FontRenderer.drawCenteredString(Message.LANGUAGE.getMessage(), x + width / 2, y + 10, fontColor);
+            drawCenteredString(Minecraft.getMinecraft().fontRenderer, Message.LANGUAGE.getMessage(), x + width / 2, y + 10, fontColor);
         }
     }
 

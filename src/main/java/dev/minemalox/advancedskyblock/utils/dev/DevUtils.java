@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * This is a class of utilities for AdvancedSkyblock developers.
+ * This is a class of utilities for AdvancedSkyblockGui developers.
  *
  * @author ILikePlayingGames
  * @version 2.1

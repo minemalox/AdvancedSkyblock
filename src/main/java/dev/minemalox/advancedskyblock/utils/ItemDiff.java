@@ -1,9 +1,5 @@
 package dev.minemalox.advancedskyblock.utils;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-
-@Getter
 public class ItemDiff {
 
     /**
@@ -21,7 +17,6 @@ public class ItemDiff {
      */
     private int amount;
 
-    @Getter(AccessLevel.NONE)
     private long timestamp;
 
     /**
@@ -53,5 +48,17 @@ public class ItemDiff {
      */
     long getLifetime() {
         return System.currentTimeMillis() - timestamp;
+    }
+
+    public String getDisplayName() {
+        return this.displayName;
+    }
+
+    public int getAmount() {
+        return this.amount;
+    }
+
+    public long getTimestamp() {
+        return this.timestamp;
     }
 }

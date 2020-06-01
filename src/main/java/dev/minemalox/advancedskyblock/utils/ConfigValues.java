@@ -4,8 +4,6 @@ import com.google.gson.*;
 import dev.minemalox.advancedskyblock.AdvancedSkyblock;
 import dev.minemalox.advancedskyblock.utils.discord.DiscordStatus;
 import dev.minemalox.advancedskyblock.utils.nifty.ChatFormatting;
-import lombok.Getter;
-import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.math.MathHelper;
@@ -31,53 +29,28 @@ public class ConfigValues {
 
     private File settingsConfigFile;
     private JsonObject settingsConfig = new JsonObject();
-    @Getter
     private JsonObject languageConfig = new JsonObject();
-
-    @Getter
     private Set<Feature> disabledFeatures = EnumSet.noneOf(Feature.class);
     //    @Deprecated private Map<Feature, ChatFormatting> featureColors = new EnumMap<>(Feature.class); // Replaced with colors
     private Map<Feature, Integer> colors = new HashMap<>();
     private Map<Feature, MutableFloat> guiScales = new EnumMap<>(Feature.class);
     private Map<Feature, CoordsPair> barSizes = new EnumMap<>(Feature.class);
-    @Getter
-    @Setter
     private int warningSeconds = 4;
     private Map<Feature, CoordsPair> coordinates = new EnumMap<>(Feature.class);
     private Map<Feature, EnumUtils.AnchorPoint> anchorPoints = new EnumMap<>(Feature.class);
-    @Getter
-    @Setter
     private Language language = Language.ENGLISH;
-    @Getter
-    @Setter
     private EnumUtils.BackpackStyle backpackStyle = EnumUtils.BackpackStyle.GUI;
-    @Getter
-    @Setter
     private EnumUtils.PowerOrbDisplayStyle powerOrbDisplayStyle = EnumUtils.PowerOrbDisplayStyle.COMPACT;
-    @Getter
-    @Setter
     private EnumUtils.TextStyle textStyle = EnumUtils.TextStyle.STYLE_ONE;
-    @Getter
     private Set<Feature> remoteDisabledFeatures = EnumSet.noneOf(Feature.class);
     private Set<Integer> legacyLockedSlots = new HashSet<>();
     private Map<String, Set<Integer>> profileLockedSlots = new HashMap<>();
-    @Getter
     private Set<Feature> chromaFeatures = new HashSet<>();
-    @Getter
-    @Setter
     private float chromaSpeed = 0.19354838F; // 2.0
-    @Getter
-    @Setter
     private EnumUtils.ChromaMode chromaMode = EnumUtils.ChromaMode.FADE;
-    @Getter
-    @Setter
     private float chromaFadeWidth = 0.22580644F; // 10° Hue
-    @Setter
     private DiscordStatus discordStatus = DiscordStatus.NONE;
-    @Setter
     private DiscordStatus discordDetails = DiscordStatus.NONE;
-
-
     public ConfigValues(AdvancedSkyblock main, File settingsConfigFile) {
         this.main = main;
         this.settingsConfigFile = settingsConfigFile;
@@ -104,6 +77,86 @@ public class ConfigValues {
         return value;
     }
 
+    public JsonObject getLanguageConfig() {
+        return languageConfig;
+    }
+
+    public Set<Feature> getDisabledFeatures() {
+        return disabledFeatures;
+    }
+
+    public int getWarningSeconds() {
+        return warningSeconds;
+    }
+
+    public void setWarningSeconds(int warningSeconds) {
+        this.warningSeconds = warningSeconds;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
+    public EnumUtils.BackpackStyle getBackpackStyle() {
+        return backpackStyle;
+    }
+
+    public void setBackpackStyle(EnumUtils.BackpackStyle backpackStyle) {
+        this.backpackStyle = backpackStyle;
+    }
+
+    public EnumUtils.PowerOrbDisplayStyle getPowerOrbDisplayStyle() {
+        return powerOrbDisplayStyle;
+    }
+
+    public void setPowerOrbDisplayStyle(EnumUtils.PowerOrbDisplayStyle powerOrbDisplayStyle) {
+        this.powerOrbDisplayStyle = powerOrbDisplayStyle;
+    }
+
+    public EnumUtils.TextStyle getTextStyle() {
+        return textStyle;
+    }
+
+    public void setTextStyle(EnumUtils.TextStyle textStyle) {
+        this.textStyle = textStyle;
+    }
+
+    public Set<Feature> getRemoteDisabledFeatures() {
+        return remoteDisabledFeatures;
+    }
+
+    public Set<Feature> getChromaFeatures() {
+        return chromaFeatures;
+    }
+
+    public float getChromaSpeed() {
+        return chromaSpeed;
+    }
+
+    public void setChromaSpeed(float chromaSpeed) {
+        this.chromaSpeed = chromaSpeed;
+    }
+
+    public EnumUtils.ChromaMode getChromaMode() {
+        return chromaMode;
+    }
+
+    public void setChromaMode(EnumUtils.ChromaMode chromaMode) {
+        this.chromaMode = chromaMode;
+    }
+
+    public float getChromaFadeWidth() {
+        return chromaFadeWidth;
+    }
+
+    public void setChromaFadeWidth(float chromaFadeWidth) {
+        this.chromaFadeWidth = chromaFadeWidth;
+    }
+
     @SuppressWarnings("deprecation")
     public void loadConfig() {
         if (settingsConfigFile.exists()) {
@@ -117,7 +170,7 @@ public class ConfigValues {
                 settingsConfig = fileElement.getAsJsonObject();
             } catch (JsonParseException | IllegalStateException | IOException ex) {
                 ex.printStackTrace();
-                System.out.println("AdvancedSkyblock: There was an error loading the config. Resetting all settings to default.");
+                System.out.println("AdvancedSkyblockGui: There was an error loading the config. Resetting all settings to default.");
                 addDefaultsAndSave();
                 return;
             }
@@ -450,12 +503,12 @@ public class ConfigValues {
             }
         } catch (JsonParseException | IllegalStateException | IOException ex) {
             ex.printStackTrace();
-            System.out.println("AdvancedSkyblock: There was an error loading the language file.");
+            System.out.println("AdvancedSkyblockGui: There was an error loading the language file.");
         }
     }
 
     private void tryPullingLanguageOnline(Language language) {
-        FMLLog.info("[AdvancedSkyblock] Attempting to pull updated language files from online.");
+        FMLLog.info("[AdvancedSkyblockGui] Attempting to pull updated language files from online.");
         new Thread(() -> {
             try {
                 URL url = new URL("https://raw.githubusercontent.com/MineMalox/AdvancedSkyblock/1.12/src/main/resources/lang/" + language.getPath() + ".json");
@@ -463,7 +516,7 @@ public class ConfigValues {
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("User-Agent", Utils.USER_AGENT);
 
-                FMLLog.info("[AdvancedSkyblock] Got response code " + connection.getResponseCode());
+                FMLLog.info("[AdvancedSkyblockGui] Got response code " + connection.getResponseCode());
 
                 StringBuilder response = new StringBuilder();
                 try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
@@ -477,7 +530,7 @@ public class ConfigValues {
                 mergeLanguageJsonObject(onlineMessages, languageConfig);
             } catch (JsonParseException | IllegalStateException | IOException ex) {
                 ex.printStackTrace();
-                System.out.println("AdvancedSkyblock: There was an error loading the language file online");
+                System.out.println("AdvancedSkyblockGui: There was an error loading the language file online");
             }
         }).start();
     }
@@ -607,7 +660,7 @@ public class ConfigValues {
             writer.close();
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.out.println("AdvancedSkyblock: An error occurred while attempting to save the config!");
+            System.out.println("AdvancedSkyblockGui: An error occurred while attempting to save the config!");
         }
     }
 
@@ -804,7 +857,15 @@ public class ConfigValues {
         return discordStatus != null ? discordStatus : DiscordStatus.NONE;
     }
 
+    public void setDiscordStatus(DiscordStatus discordStatus) {
+        this.discordStatus = discordStatus;
+    }
+
     public DiscordStatus getDiscordDetails() {
         return discordDetails != null ? discordDetails : DiscordStatus.NONE;
+    }
+
+    public void setDiscordDetails(DiscordStatus discordDetails) {
+        this.discordDetails = discordDetails;
     }
 }

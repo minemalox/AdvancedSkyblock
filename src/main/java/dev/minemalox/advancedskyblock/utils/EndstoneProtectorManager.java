@@ -1,7 +1,6 @@
 package dev.minemalox.advancedskyblock.utils;
 
 import dev.minemalox.advancedskyblock.AdvancedSkyblock;
-import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.Entity;
@@ -12,11 +11,8 @@ import net.minecraft.world.chunk.Chunk;
 
 public class EndstoneProtectorManager {
 
-    @Getter
     private static boolean canDetectSkull = false;
-    @Getter
     private static Stage minibossStage = null;
-    @Getter
     private static int zealotCount = -1;
 
     public static void tick() {
@@ -72,6 +68,18 @@ public class EndstoneProtectorManager {
         canDetectSkull = false;
     }
 
+    public static boolean isCanDetectSkull() {
+        return EndstoneProtectorManager.canDetectSkull;
+    }
+
+    public static Stage getMinibossStage() {
+        return EndstoneProtectorManager.minibossStage;
+    }
+
+    public static int getZealotCount() {
+        return EndstoneProtectorManager.zealotCount;
+    }
+
     public enum Stage {
         NO_HEAD(-1, 5000),
         STAGE_1(0, 4000),
@@ -82,7 +90,6 @@ public class EndstoneProtectorManager {
         GOLEM_ALIVE(-1, 0);
 
         private BlockPos[] blockPos = null;
-        @Getter
         private int zealotsRemaining;
 
         Stage(int blocksUp, int zealotsRemaining) {
@@ -111,6 +118,10 @@ public class EndstoneProtectorManager {
             }
 
             return Stage.NO_HEAD;
+        }
+
+        public int getZealotsRemaining() {
+            return this.zealotsRemaining;
         }
     }
 }

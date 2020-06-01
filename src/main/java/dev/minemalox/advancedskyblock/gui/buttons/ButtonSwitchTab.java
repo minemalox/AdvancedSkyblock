@@ -3,7 +3,6 @@ package dev.minemalox.advancedskyblock.gui.buttons;
 import dev.minemalox.advancedskyblock.AdvancedSkyblock;
 import dev.minemalox.advancedskyblock.utils.EnumUtils;
 import dev.minemalox.advancedskyblock.utils.Feature;
-import dev.minemalox.advancedskyblock.utils.nifty.reflection.MinecraftReflection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.GuiButton;
@@ -63,7 +62,7 @@ public class ButtonSwitchTab extends GuiButton {
             GlStateManager.pushMatrix();
             GlStateManager.scale(scale, scale, 1);
             GlStateManager.enableBlend();
-            MinecraftReflection.FontRenderer.drawCenteredString(displayString, (int) ((x + width / 2) * scaleMultiplier), (int) ((y + (this.height - (8 / scaleMultiplier)) / 2) * scaleMultiplier),
+            drawCenteredString(Minecraft.getMinecraft().fontRenderer, displayString, (int) ((x + width / 2) * scaleMultiplier), (int) ((y + (this.height - (8 / scaleMultiplier)) / 2) * scaleMultiplier),
                     fontColor);
             GlStateManager.popMatrix();
         }

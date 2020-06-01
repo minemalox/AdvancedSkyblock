@@ -1,7 +1,6 @@
 package dev.minemalox.advancedskyblock.utils;
 
 import dev.minemalox.advancedskyblock.AdvancedSkyblock;
-import lombok.Getter;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -24,7 +23,6 @@ public class EnumUtils {
         BOTTOM_MIDDLE(4, Message.ANCHOR_POINT_HEALTH_BAR);
 
         private Message message;
-        @Getter
         private int id;
 
         AnchorPoint(int id, Message message) {
@@ -76,6 +74,10 @@ public class EnumUtils {
             }
             return y;
         }
+
+        public int getId() {
+            return this.id;
+        }
     }
 
     public enum ButtonType {
@@ -92,7 +94,6 @@ public class EnumUtils {
         /**
          * The current inventory type. Can be null.
          */
-        @Getter
         private static InventoryType currentInventoryType;
         private final Message message;
         private final String inventoryName;
@@ -124,6 +125,10 @@ public class EnumUtils {
                 }
             }
             return null;
+        }
+
+        public static InventoryType getCurrentInventoryType() {
+            return InventoryType.currentInventoryType;
         }
 
         public String getMessage() {
@@ -203,7 +208,6 @@ public class EnumUtils {
     /**
      * Different detection methods of the magma boss are more accurate than others, display how accurate the time is.
      */
-    @Getter
     public enum MagmaTimerAccuracy {
         NO_DATA("N/A"),
         SPAWNED("NOW"),
@@ -216,9 +220,12 @@ public class EnumUtils {
         MagmaTimerAccuracy(String symbol) {
             this.symbol = symbol;
         }
+
+        public String getSymbol() {
+            return this.symbol;
+        }
     }
 
-    @Getter
     public enum MagmaEvent {
         MAGMA_WAVE("magma"),
         BLAZE_WAVE("blaze"),
@@ -233,6 +240,10 @@ public class EnumUtils {
 
         MagmaEvent(String inventiveTalentEvent) {
             this.inventiveTalentEvent = inventiveTalentEvent;
+        }
+
+        public String getInventiveTalentEvent() {
+            return this.inventiveTalentEvent;
         }
     }
 
@@ -267,7 +278,6 @@ public class EnumUtils {
         DISCORD_RP_STATE(null, 0),
         DISCORD_RP_DETAILS(null, 0);
 
-        @Getter
         private Message message;
         private int featureEquivalent;
 
@@ -285,6 +295,10 @@ public class EnumUtils {
                 }
             }
             return null;
+        }
+
+        public Message getMessage() {
+            return this.message;
         }
     }
 
@@ -376,7 +390,6 @@ public class EnumUtils {
         OTHER(null, null);
 
         private String skillName;
-        @Getter
         private ItemStack item;
 
         SkillType(String skillName, Item item) {
@@ -392,6 +405,10 @@ public class EnumUtils {
             }
             return OTHER;
         }
+
+        public ItemStack getItem() {
+            return this.item;
+        }
     }
 
     public enum DrawType {
@@ -406,7 +423,6 @@ public class EnumUtils {
         TAB_EFFECT_TIMERS
     }
 
-    @Getter
     public enum Social {
         YOUTUBE(new ResourceLocation("advancedskyblock", "youtube.png"), "https://www.youtube.com/channel/UCnJ1Ujs5DKeBczM_u2zpTQw"),
         DISCORD(new ResourceLocation("advancedskyblock", "discord.png"), "https://discord.com"),
@@ -422,6 +438,14 @@ public class EnumUtils {
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
+        }
+
+        public ResourceLocation getResourceLocation() {
+            return this.resourceLocation;
+        }
+
+        public URI getUrl() {
+            return this.url;
         }
     }
 

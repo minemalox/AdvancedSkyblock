@@ -4,7 +4,6 @@ import dev.minemalox.advancedskyblock.AdvancedSkyblock;
 import dev.minemalox.advancedskyblock.utils.Feature;
 import dev.minemalox.advancedskyblock.utils.Message;
 import dev.minemalox.advancedskyblock.utils.nifty.ChatFormatting;
-import dev.minemalox.advancedskyblock.utils.nifty.reflection.MinecraftReflection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.math.MathHelper;
@@ -49,7 +48,7 @@ public class ButtonGuiScale extends ButtonFeature {
         } else if (this.hovered) {
             j = 16777120;
         }
-        MinecraftReflection.FontRenderer.drawCenteredString(this.displayString, this.x + this.width / 2, this.y + (this.height - 8) / 2, j);
+        drawCenteredString(Minecraft.getMinecraft().fontRenderer, this.displayString, this.x + this.width / 2, this.y + (this.height - 8) / 2, j);
     }
 
     protected int getHoverState(boolean mouseOver) {

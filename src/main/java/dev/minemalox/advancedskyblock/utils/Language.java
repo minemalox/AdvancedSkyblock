@@ -1,8 +1,5 @@
 package dev.minemalox.advancedskyblock.utils;
 
-import lombok.Getter;
-
-@Getter
 public enum Language {
 
     // listed by popularity
@@ -74,5 +71,9 @@ public enum Language {
      */
     public String getFlagPath() {
         return path.toLowerCase();
+    }
+
+    public String getPath() {
+        return this.path;
     }
 }

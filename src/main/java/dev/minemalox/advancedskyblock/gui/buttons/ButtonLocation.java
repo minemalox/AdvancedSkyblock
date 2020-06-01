@@ -3,15 +3,12 @@ package dev.minemalox.advancedskyblock.gui.buttons;
 import dev.minemalox.advancedskyblock.AdvancedSkyblock;
 import dev.minemalox.advancedskyblock.utils.Feature;
 import dev.minemalox.advancedskyblock.utils.nifty.ChatFormatting;
-import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 
-@Getter
 public class ButtonLocation extends ButtonFeature {
 
     // So we know the latest hovered feature (used for arrow key movement).
-    @Getter
     private static Feature lastHoveredFeature = null;
 
     private AdvancedSkyblock main;
@@ -29,6 +26,10 @@ public class ButtonLocation extends ButtonFeature {
     public ButtonLocation(AdvancedSkyblock main, Feature feature) {
         super(-1, 0, 0, null, feature);
         this.main = main;
+    }
+
+    public static Feature getLastHoveredFeature() {
+        return ButtonLocation.lastHoveredFeature;
     }
 
     @Override
@@ -88,5 +89,33 @@ public class ButtonLocation extends ButtonFeature {
     @Override
     public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
         return this.enabled && this.visible && hovered;
+    }
+
+    public AdvancedSkyblock getMain() {
+        return this.main;
+    }
+
+    public int getLastMouseX() {
+        return this.lastMouseX;
+    }
+
+    public int getLastMouseY() {
+        return this.lastMouseY;
+    }
+
+    public int getBoxXOne() {
+        return this.boxXOne;
+    }
+
+    public int getBoxXTwo() {
+        return this.boxXTwo;
+    }
+
+    public int getBoxYOne() {
+        return this.boxYOne;
+    }
+
+    public int getBoxYTwo() {
+        return this.boxYTwo;
     }
 }

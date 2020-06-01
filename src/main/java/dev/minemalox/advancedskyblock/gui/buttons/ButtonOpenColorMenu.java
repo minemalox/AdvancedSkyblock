@@ -2,13 +2,12 @@ package dev.minemalox.advancedskyblock.gui.buttons;
 
 import dev.minemalox.advancedskyblock.AdvancedSkyblock;
 import dev.minemalox.advancedskyblock.utils.Feature;
-import dev.minemalox.advancedskyblock.utils.nifty.reflection.MinecraftReflection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 
 import java.awt.*;
 
-import static dev.minemalox.advancedskyblock.gui.AdvancedSkyblock.BUTTON_MAX_WIDTH;
+import static dev.minemalox.advancedskyblock.gui.AdvancedSkyblockGui.BUTTON_MAX_WIDTH;
 
 public class ButtonOpenColorMenu extends ButtonText {
 
@@ -38,7 +37,7 @@ public class ButtonOpenColorMenu extends ButtonText {
         // Regular features are red if disabled, green if enabled or part of the gui feature is enabled.
         GlStateManager.enableBlend();
         float scale = 1;
-        int stringWidth = MinecraftReflection.FontRenderer.getStringWidth(displayString);
+        int stringWidth = Minecraft.getMinecraft().fontRenderer.getStringWidth(displayString);
         float widthLimit = BUTTON_MAX_WIDTH - 10;
         if (stringWidth > widthLimit) {
             scale = 1 / (stringWidth / widthLimit);

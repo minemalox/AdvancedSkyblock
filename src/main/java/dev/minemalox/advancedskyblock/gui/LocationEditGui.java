@@ -6,7 +6,6 @@ import dev.minemalox.advancedskyblock.gui.buttons.ButtonResize;
 import dev.minemalox.advancedskyblock.gui.buttons.ButtonSolid;
 import dev.minemalox.advancedskyblock.utils.*;
 import dev.minemalox.advancedskyblock.utils.nifty.ChatFormatting;
-import dev.minemalox.advancedskyblock.utils.nifty.reflection.MinecraftReflection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
@@ -75,33 +74,33 @@ public class LocationEditGui extends GuiScreen {
 
         ScaledResolution scaledResolution = new ScaledResolution(Minecraft.getMinecraft());
         String text = Message.SETTING_RESET_LOCATIONS.getMessage();
-        int boxWidth = MinecraftReflection.FontRenderer.getStringWidth(text) + 10;
+        int boxWidth = Minecraft.getMinecraft().fontRenderer.getStringWidth(text) + 10;
         int boxHeight = 20;
-        if (boxWidth > AdvancedSkyblock.BUTTON_MAX_WIDTH) boxWidth = AdvancedSkyblock.BUTTON_MAX_WIDTH;
+        if (boxWidth > AdvancedSkyblockGui.BUTTON_MAX_WIDTH) boxWidth = AdvancedSkyblockGui.BUTTON_MAX_WIDTH;
         int x = scaledResolution.getScaledWidth() / 2 - boxWidth / 2;
         int y = scaledResolution.getScaledHeight() / 2 - 2 - boxHeight - 5 - boxHeight;
         buttonList.add(new ButtonSolid(x, y, boxWidth, boxHeight, text, main, Feature.RESET_LOCATION));
 
         text = Feature.RESCALE_FEATURES.getMessage();
-        boxWidth = MinecraftReflection.FontRenderer.getStringWidth(text) + 10;
+        boxWidth = Minecraft.getMinecraft().fontRenderer.getStringWidth(text) + 10;
         boxHeight = 20;
-        if (boxWidth > AdvancedSkyblock.BUTTON_MAX_WIDTH) boxWidth = AdvancedSkyblock.BUTTON_MAX_WIDTH;
+        if (boxWidth > AdvancedSkyblockGui.BUTTON_MAX_WIDTH) boxWidth = AdvancedSkyblockGui.BUTTON_MAX_WIDTH;
         x = scaledResolution.getScaledWidth() / 2 - boxWidth / 2;
         y = scaledResolution.getScaledHeight() / 2 - boxHeight;
         buttonList.add(new ButtonSolid(x, y, boxWidth, boxHeight, text, main, Feature.RESCALE_FEATURES));
 
         text = Feature.RESIZE_BARS.getMessage();
-        boxWidth = MinecraftReflection.FontRenderer.getStringWidth(text) + 10;
+        boxWidth = Minecraft.getMinecraft().fontRenderer.getStringWidth(text) + 10;
         boxHeight = 20;
-        if (boxWidth > AdvancedSkyblock.BUTTON_MAX_WIDTH) boxWidth = AdvancedSkyblock.BUTTON_MAX_WIDTH;
+        if (boxWidth > AdvancedSkyblockGui.BUTTON_MAX_WIDTH) boxWidth = AdvancedSkyblockGui.BUTTON_MAX_WIDTH;
         x = scaledResolution.getScaledWidth() / 2 - boxWidth / 2;
         y = scaledResolution.getScaledHeight() / 2 + 5;
         buttonList.add(new ButtonSolid(x, y, boxWidth, boxHeight, text, main, Feature.RESIZE_BARS));
 
         text = Feature.SHOW_COLOR_ICONS.getMessage();
-        boxWidth = MinecraftReflection.FontRenderer.getStringWidth(text) + 10;
+        boxWidth = Minecraft.getMinecraft().fontRenderer.getStringWidth(text) + 10;
         boxHeight = 20;
-        if (boxWidth > AdvancedSkyblock.BUTTON_MAX_WIDTH) boxWidth = AdvancedSkyblock.BUTTON_MAX_WIDTH;
+        if (boxWidth > AdvancedSkyblockGui.BUTTON_MAX_WIDTH) boxWidth = AdvancedSkyblockGui.BUTTON_MAX_WIDTH;
         x = scaledResolution.getScaledWidth() / 2 - boxWidth / 2;
         y = scaledResolution.getScaledHeight() / 2 + 5 + boxHeight + 5;
         buttonList.add(new ButtonSolid(x, y, boxWidth, boxHeight, text, main, Feature.SHOW_COLOR_ICONS));

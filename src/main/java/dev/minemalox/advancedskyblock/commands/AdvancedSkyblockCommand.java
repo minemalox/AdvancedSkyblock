@@ -59,7 +59,7 @@ public class AdvancedSkyblockCommand extends CommandBase {
      */
     public String getCommandUsage(ICommandSender sender) {
         return
-                "§7§m------------§7[§b§l AdvancedSkyblock §7]§7§m------------" + "\n" +
+                "§7§m------------§7[§b§l AdvancedSkyblockGui §7]§7§m------------" + "\n" +
                         "§b● /sba §7- Open the main menu" + "\n" +
                         "§b● /sba edit §7- Edit GUI locations" + "\n" +
                         "§b● /sba folder §7- Open your mods folder" + "\n" +
@@ -71,7 +71,7 @@ public class AdvancedSkyblockCommand extends CommandBase {
      */
     public String getDevCommandUsage() {
         return
-                "§7§m----§7[§b§l AdvancedSkyblock Developer Mode §7]§7§m----" + "\n" +
+                "§7§m----§7[§b§l AdvancedSkyblockGui Developer Mode §7]§7§m----" + "\n" +
                         "§b● /sba dev §7- Toggle developer mode" + "\n" +
                         "\n" +
                         "§7Options (§b/sba dev [option])§7:" + "\n" +

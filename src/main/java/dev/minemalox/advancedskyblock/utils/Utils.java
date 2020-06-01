@@ -10,9 +10,6 @@ import dev.minemalox.advancedskyblock.utils.events.SkyblockJoinedEvent;
 import dev.minemalox.advancedskyblock.utils.events.SkyblockLeftEvent;
 import dev.minemalox.advancedskyblock.utils.nifty.ChatFormatting;
 import dev.minemalox.advancedskyblock.utils.nifty.StringUtil;
-import dev.minemalox.advancedskyblock.utils.nifty.reflection.MinecraftReflection;
-import lombok.Getter;
-import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.util.ITooltipFlag;
@@ -45,14 +42,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-@Getter
-@Setter
 public class Utils {
 
     /**
      * Used for web requests.
      */
-    public static final String USER_AGENT = "AdvancedSkyblock/" + AdvancedSkyblock.VERSION;
+    public static final String USER_AGENT = "AdvancedSkyblockGui/" + AdvancedSkyblock.VERSION;
     /**
      * Added to the beginning of messages.
      */
@@ -334,7 +329,7 @@ public class Utils {
                 URL url = new URL("https://raw.githubusercontent.com/MineMalox/AdvancedSkyblock/1.12/build.gradle");
                 URLConnection connection = url.openConnection();
                 connection.setReadTimeout(5000);
-                connection.addRequestProperty("User-Agent", "AdvancedSkyblock update checker");
+                connection.addRequestProperty("User-Agent", "AdvancedSkyblockGui update checker");
                 connection.setDoOutput(true);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String currentLine;
@@ -395,7 +390,7 @@ public class Utils {
                             url = new URL("https://raw.githubusercontent.com/MineMalox/AdvancedSkyblock/1.12/updatelink.txt");
                             connection = url.openConnection();
                             connection.setReadTimeout(5000);
-                            connection.addRequestProperty("User-Agent", "AdvancedSkyblock");
+                            connection.addRequestProperty("User-Agent", "AdvancedSkyblockGui");
                             connection.setDoOutput(true);
                             reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                             while ((currentLine = reader.readLine()) != null) {
@@ -430,7 +425,7 @@ public class Utils {
     @Deprecated
     void sendUpdateMessage(boolean showDownload, boolean showAutoDownload) {
         String newestVersion = main.getRenderListener().getDownloadInfo().getNewestVersion();
-        sendMessage(TextUtils.color("&7&m------------&7[&b&l AdvancedSkyblock &7]&7&m------------"), false);
+        sendMessage(TextUtils.color("&7&m------------&7[&b&l AdvancedSkyblockGui &7]&7&m------------"), false);
         if (main.getRenderListener().getDownloadInfo().getMessageType() == EnumUtils.UpdateMessageType.DOWNLOAD_FINISHED) {
             TextComponentString deleteOldFile = new TextComponentString(ChatFormatting.RED + Message.MESSAGE_DELETE_OLD_FILE.getMessage() + "\n");
             sendMessage(deleteOldFile, false);
@@ -473,7 +468,7 @@ public class Utils {
                 URL url = new URL("https://raw.githubusercontent.com/MineMalox/AdvancedSkyblock/1.12/disabledFeatures.txt");
                 URLConnection connection = url.openConnection();
                 connection.setReadTimeout(5000);
-                connection.addRequestProperty("User-Agent", "AdvancedSkyblock");
+                connection.addRequestProperty("User-Agent", "AdvancedSkyblockGui");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String currentLine;
                 Set<Feature> disabledFeatures = main.getConfigValues().getRemoteDisabledFeatures();
@@ -673,7 +668,7 @@ public class Utils {
             main.getUtils().sendMessage(ChatFormatting.YELLOW + Message.MESSAGE_DOWNLOADING_UPDATE.getMessage());
             new Thread(() -> {
                 try {
-                    String fileName = "AdvancedSkyblock-" + version + "-for-MC-1.12.2.jar";
+                    String fileName = "AdvancedSkyblockGui-" + version + "-for-MC-1.12.2.jar";
                     URL url = new URL("https://github.com/MineMalox/AdvancedSkyblock/releases/download/v" + version + "/" + fileName);
                     File outputFile = new File(sbaFolder.toString() + File.separator + fileName);
                     URLConnection connection = url.openConnection();
@@ -701,9 +696,9 @@ public class Utils {
     }
 
     /**
-     * Returns the folder that AdvancedSkyblock is located in.
+     * Returns the folder that AdvancedSkyblockGui is located in.
      *
-     * @return the folder the AdvancedSkyblock jar is located in
+     * @return the folder the AdvancedSkyblockGui jar is located in
      */
     public File getSBAFolder() {
         return Loader.instance().activeModContainer().getSource().getParentFile();
@@ -787,7 +782,7 @@ public class Utils {
                     URL url = new URL("https://raw.githubusercontent.com/MineMalox/AdvancedSkyblock/1.12/src/main/resources/featuredlink.txt");
                     URLConnection connection = url.openConnection(); // try looking online
                     connection.setReadTimeout(5000);
-                    connection.addRequestProperty("User-Agent", "AdvancedSkyblock");
+                    connection.addRequestProperty("User-Agent", "AdvancedSkyblockGui");
                     connection.setDoOutput(true);
                     BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                     String currentLine;
@@ -813,13 +808,13 @@ public class Utils {
         if (main.getConfigValues().getTextStyle() == EnumUtils.TextStyle.STYLE_TWO) {
             int colorBlack = new Color(0, 0, 0, textAlpha > 0.016 ? textAlpha : 0.016F).getRGB();
             String strippedText = TextUtils.stripColor(text);
-            MinecraftReflection.FontRenderer.drawString(strippedText, x + 1, y, colorBlack);
-            MinecraftReflection.FontRenderer.drawString(strippedText, x - 1, y, colorBlack);
-            MinecraftReflection.FontRenderer.drawString(strippedText, x, y + 1, colorBlack);
-            MinecraftReflection.FontRenderer.drawString(strippedText, x, y - 1, colorBlack);
-            MinecraftReflection.FontRenderer.drawString(text, x, y, color);
+            Minecraft.getMinecraft().fontRenderer.drawString(strippedText, x + 1, y, colorBlack);
+            Minecraft.getMinecraft().fontRenderer.drawString(strippedText, x - 1, y, colorBlack);
+            Minecraft.getMinecraft().fontRenderer.drawString(strippedText, x, y + 1, colorBlack);
+            Minecraft.getMinecraft().fontRenderer.drawString(strippedText, x, y - 1, colorBlack);
+            Minecraft.getMinecraft().fontRenderer.drawString(text, x, y, color);
         } else {
-            MinecraftReflection.FontRenderer.drawString(text, x, y, color, true);
+            Minecraft.getMinecraft().fontRenderer.drawString(text, x, y, color, true);
         }
     }
 
@@ -882,5 +877,177 @@ public class Utils {
 
     public int getColorWithAlpha(int color, int alpha) {
         return color + ((alpha << 24) & 0xFF000000);
+    }
+
+    public ItemDropChecker getItemDropChecker() {
+        return this.itemDropChecker;
+    }
+
+    public Map<Attribute, MutableInt> getAttributes() {
+        return this.attributes;
+    }
+
+    public void setAttributes(Map<Attribute, MutableInt> attributes) {
+        this.attributes = attributes;
+    }
+
+    public List<String> getEnchantmentMatches() {
+        return this.enchantmentMatches;
+    }
+
+    public void setEnchantmentMatches(List<String> enchantmentMatches) {
+        this.enchantmentMatches = enchantmentMatches;
+    }
+
+    public List<String> getEnchantmentExclusions() {
+        return this.enchantmentExclusions;
+    }
+
+    public void setEnchantmentExclusions(List<String> enchantmentExclusions) {
+        this.enchantmentExclusions = enchantmentExclusions;
+    }
+
+    public Backpack getBackpackToRender() {
+        return this.backpackToRender;
+    }
+
+    public void setBackpackToRender(Backpack backpackToRender) {
+        this.backpackToRender = backpackToRender;
+    }
+
+    public boolean isOnSkyblock() {
+        return this.onSkyblock;
+    }
+
+    public void setOnSkyblock(boolean onSkyblock) {
+        this.onSkyblock = onSkyblock;
+    }
+
+    public Location getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public String getProfileName() {
+        return this.profileName;
+    }
+
+    public void setProfileName(String profileName) {
+        this.profileName = profileName;
+    }
+
+    public boolean isPlayingSound() {
+        return this.playingSound;
+    }
+
+    public void setPlayingSound(boolean playingSound) {
+        this.playingSound = playingSound;
+    }
+
+    public String getServerID() {
+        return this.serverID;
+    }
+
+    public void setServerID(String serverID) {
+        this.serverID = serverID;
+    }
+
+    public int getLastHoveredSlot() {
+        return this.lastHoveredSlot;
+    }
+
+    public void setLastHoveredSlot(int lastHoveredSlot) {
+        this.lastHoveredSlot = lastHoveredSlot;
+    }
+
+    public boolean isUsingOldSkyBlockTexture() {
+        return this.usingOldSkyBlockTexture;
+    }
+
+    public void setUsingOldSkyBlockTexture(boolean usingOldSkyBlockTexture) {
+        this.usingOldSkyBlockTexture = usingOldSkyBlockTexture;
+    }
+
+    public boolean isUsingDefaultBarTextures() {
+        return this.usingDefaultBarTextures;
+    }
+
+    public void setUsingDefaultBarTextures(boolean usingDefaultBarTextures) {
+        this.usingDefaultBarTextures = usingDefaultBarTextures;
+    }
+
+    public SkyblockDate getCurrentDate() {
+        return this.currentDate;
+    }
+
+    public void setCurrentDate(SkyblockDate currentDate) {
+        this.currentDate = currentDate;
+    }
+
+    public double getPurse() {
+        return this.purse;
+    }
+
+    public void setPurse(double purse) {
+        this.purse = purse;
+    }
+
+    public int getJerryWave() {
+        return this.jerryWave;
+    }
+
+    public void setJerryWave(int jerryWave) {
+        this.jerryWave = jerryWave;
+    }
+
+    public boolean isFadingIn() {
+        return this.fadingIn;
+    }
+
+    public void setFadingIn(boolean fadingIn) {
+        this.fadingIn = fadingIn;
+    }
+
+    public boolean isLookedOnline() {
+        return this.lookedOnline;
+    }
+
+    public void setLookedOnline(boolean lookedOnline) {
+        this.lookedOnline = lookedOnline;
+    }
+
+    public URI getFeaturedLink() {
+        return this.featuredLink;
+    }
+
+    public void setFeaturedLink(URI featuredLink) {
+        this.featuredLink = featuredLink;
+    }
+
+    public long getLastDamaged() {
+        return this.lastDamaged;
+    }
+
+    public void setLastDamaged(long lastDamaged) {
+        this.lastDamaged = lastDamaged;
+    }
+
+    public AdvancedSkyblock getMain() {
+        return this.main;
+    }
+
+    public void setMain(AdvancedSkyblock main) {
+        this.main = main;
+    }
+
+    public Logger getLogger() {
+        return this.logger;
+    }
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
     }
 }

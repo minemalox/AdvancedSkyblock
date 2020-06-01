@@ -20,7 +20,6 @@
     "ItemMixin",
     "MinecraftMixin",
     "MouseHelperMixin",
-    "NetHandlerPlayClientMixin",
     "PlayerControllerMPMixin",
     "RenderDragonMixin",
     "RenderEndermanMixin",

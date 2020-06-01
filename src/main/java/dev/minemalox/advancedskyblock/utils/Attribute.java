@@ -1,8 +1,5 @@
 package dev.minemalox.advancedskyblock.utils;
 
-import lombok.Getter;
-
-@Getter
 public enum Attribute {
 
     DEFENCE(0),
@@ -15,5 +12,9 @@ public enum Attribute {
 
     Attribute(int defaultValue) {
         this.defaultValue = defaultValue;
+    }
+
+    public int getDefaultValue() {
+        return this.defaultValue;
     }
 }

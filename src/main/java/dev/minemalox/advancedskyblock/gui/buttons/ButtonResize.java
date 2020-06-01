@@ -3,11 +3,9 @@ package dev.minemalox.advancedskyblock.gui.buttons;
 import dev.minemalox.advancedskyblock.AdvancedSkyblock;
 import dev.minemalox.advancedskyblock.utils.Feature;
 import dev.minemalox.advancedskyblock.utils.nifty.ChatFormatting;
-import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 
-@Getter
 public class ButtonResize extends ButtonFeature {
 
     private int lastMouseX;
@@ -37,6 +35,18 @@ public class ButtonResize extends ButtonFeature {
     @Override
     public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
         return hovered;
+    }
+
+    public int getLastMouseX() {
+        return this.lastMouseX;
+    }
+
+    public int getLastMouseY() {
+        return this.lastMouseY;
+    }
+
+    public Corner getCorner() {
+        return this.corner;
     }
 
     public enum Corner {

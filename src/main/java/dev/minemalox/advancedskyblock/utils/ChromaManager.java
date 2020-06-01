@@ -1,14 +1,12 @@
 package dev.minemalox.advancedskyblock.utils;
 
 import dev.minemalox.advancedskyblock.AdvancedSkyblock;
-import lombok.Getter;
 
 import java.awt.*;
 
 public class ChromaManager {
 
 
-    @Getter
     private static boolean coloringTextChroma = false;
 
     private static float currentHue = 0;
@@ -56,5 +54,9 @@ public class ChromaManager {
      */
     public static void doneRenderingText() {
         coloringTextChroma = false;
+    }
+
+    public static boolean isColoringTextChroma() {
+        return ChromaManager.coloringTextChroma;
     }
 }

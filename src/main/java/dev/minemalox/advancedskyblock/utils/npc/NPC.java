@@ -1,7 +1,6 @@
 package dev.minemalox.advancedskyblock.utils.npc;
 
 import dev.minemalox.advancedskyblock.utils.Location;
-import lombok.Getter;
 
 import java.util.List;
 
@@ -15,7 +14,6 @@ import static java.util.Collections.singletonList;
  * @author ILikePlayingGames
  * @version 1.0
  */
-@Getter
 enum NPC {
     // These are organized by island
 
@@ -181,5 +179,29 @@ enum NPC {
 
     boolean hasLocation(Location location) {
         return locations.contains(location);
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public double getX() {
+        return this.x;
+    }
+
+    public double getY() {
+        return this.y;
+    }
+
+    public double getZ() {
+        return this.z;
+    }
+
+    public List<Tag> getTags() {
+        return this.tags;
+    }
+
+    public List<Location> getLocations() {
+        return this.locations;
     }
 }

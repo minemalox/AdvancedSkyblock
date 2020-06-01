@@ -49,7 +49,7 @@ public class ItemDropChecker {
     /**
      * Creates a new instance of the item checker for the Stop Dropping/Selling Rare Items feature.
      *
-     * @param main the AdvancedSkyblock instance
+     * @param main the AdvancedSkyblockGui instance
      */
     public ItemDropChecker(AdvancedSkyblock main) {
         this.GSON = new GsonBuilder().setPrettyPrinting().create();

@@ -1,11 +1,8 @@
 package dev.minemalox.advancedskyblock.constants.game;
 
-import lombok.Getter;
-
 /**
  * Skyblock item rarity definitions
  */
-@Getter
 public enum Rarity {
     COMMON("§f§lCOMMON"),
     UNCOMMON("§a§lUNCOMMON"),
@@ -18,5 +15,9 @@ public enum Rarity {
 
     Rarity(String s) {
         this.tag = s;
+    }
+
+    public String getTag() {
+        return this.tag;
     }
 }

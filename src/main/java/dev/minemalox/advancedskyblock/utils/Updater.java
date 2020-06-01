@@ -1,14 +1,13 @@
 package dev.minemalox.advancedskyblock.utils;
 
 import dev.minemalox.advancedskyblock.AdvancedSkyblock;
-import lombok.Getter;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.versioning.ComparableVersion;
 import org.apache.logging.log4j.Logger;
 
 /**
- * This class is the AdvancedSkyblock updater. It reads the Forge Update Checker results for AdvancedSkyblock.
+ * This class is the AdvancedSkyblockGui updater. It reads the Forge Update Checker results for AdvancedSkyblockGui.
  */
 public class Updater {
 
@@ -17,7 +16,6 @@ public class Updater {
 
     private ComparableVersion current;
     private ComparableVersion latest;
-    @Getter
     private String message;
     private boolean hasUpdate;
 
@@ -58,5 +56,9 @@ public class Updater {
             // The update checker hasn't finished yet. Check back later.
             main.getScheduler().schedule(Scheduler.CommandType.PROCESS_UPDATE_CHECK_RESULT, 10);
         }
+    }
+
+    public String getMessage() {
+        return this.message;
     }
 }

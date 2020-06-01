@@ -2,7 +2,6 @@ package dev.minemalox.advancedskyblock.utils;
 
 import dev.minemalox.advancedskyblock.AdvancedSkyblock;
 import dev.minemalox.advancedskyblock.listeners.PlayerListener;
-import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -167,7 +166,6 @@ public class Scheduler {
         }
     }
 
-    @Getter
     private class Command {
         private CommandType commandType;
         private MutableInt count = new MutableInt(1);
@@ -178,6 +176,14 @@ public class Scheduler {
             if (data.length > 0) {
                 countData.put(1, data);
             }
+        }
+
+        public CommandType getCommandType() {
+            return commandType;
+        }
+
+        public MutableInt getCount() {
+            return count;
         }
 
         private void addCount(Object... data) {

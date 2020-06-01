@@ -3,14 +3,12 @@ package dev.minemalox.advancedskyblock.utils;
 import com.google.gson.JsonObject;
 import dev.minemalox.advancedskyblock.AdvancedSkyblock;
 import dev.minemalox.advancedskyblock.utils.nifty.ChatFormatting;
-import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-@Getter
 @SuppressWarnings("DeprecatedIsStillUsed")
 public enum Message {
     LANGUAGE(MessageObject.ROOT, "language"),
@@ -294,7 +292,14 @@ public enum Message {
         return text;
     }
 
-    @Getter
+    public MessageObject getMessageObject() {
+        return this.messageObject;
+    }
+
+    public String getMemberName() {
+        return this.memberName;
+    }
+
     enum MessageObject {
         ROOT(""),
         SETTING("settings"),
@@ -313,6 +318,10 @@ public enum Message {
 
         MessageObject(String path) {
             this.path = new LinkedList<>(Arrays.asList(path.split(Pattern.quote("."))));
+        }
+
+        public List<String> getPath() {
+            return this.path;
         }
     }
 

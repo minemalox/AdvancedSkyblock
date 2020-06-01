@@ -2,8 +2,6 @@ package dev.minemalox.advancedskyblock.utils;
 
 import dev.minemalox.advancedskyblock.AdvancedSkyblock;
 import dev.minemalox.advancedskyblock.utils.nifty.StringUtil;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -34,7 +32,6 @@ import java.util.regex.Pattern;
  * parses information from that section.
  */
 
-@Getter
 public class ActionBarParser {
 
     private final Pattern COLLECTIONS_CHAT_PATTERN = Pattern.compile("§.\\+(?:§[0-9a-f])?([0-9,.]+) §?[0-9a-f]?([A-Za-z]+) (\\([0-9.,]+/[0-9.,]+\\))");
@@ -50,11 +47,8 @@ public class ActionBarParser {
      * The total amount of possible tickers or 0 if none are in the action bar.
      */
     private int maxTickers = 0;
-    @Setter
     private int lastSecondHealth = -1;
-    @Setter
     private Integer healthUpdate = null;
-    @Setter
     private long lastHealthUpdate;
 
     public ActionBarParser(AdvancedSkyblock main) {
@@ -283,5 +277,45 @@ public class ActionBarParser {
      */
     private void setAttribute(Attribute attribute, int value) {
         main.getUtils().getAttributes().get(attribute).setValue(value);
+    }
+
+    public Pattern getCOLLECTIONS_CHAT_PATTERN() {
+        return this.COLLECTIONS_CHAT_PATTERN;
+    }
+
+    public AdvancedSkyblock getMain() {
+        return this.main;
+    }
+
+    public int getTickers() {
+        return this.tickers;
+    }
+
+    public int getMaxTickers() {
+        return this.maxTickers;
+    }
+
+    public int getLastSecondHealth() {
+        return this.lastSecondHealth;
+    }
+
+    public void setLastSecondHealth(int lastSecondHealth) {
+        this.lastSecondHealth = lastSecondHealth;
+    }
+
+    public Integer getHealthUpdate() {
+        return this.healthUpdate;
+    }
+
+    public void setHealthUpdate(Integer healthUpdate) {
+        this.healthUpdate = healthUpdate;
+    }
+
+    public long getLastHealthUpdate() {
+        return this.lastHealthUpdate;
+    }
+
+    public void setLastHealthUpdate(long lastHealthUpdate) {
+        this.lastHealthUpdate = lastHealthUpdate;
     }
 }

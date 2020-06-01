@@ -5,8 +5,6 @@ import com.google.common.collect.Multimap;
 import dev.minemalox.advancedskyblock.AdvancedSkyblock;
 import dev.minemalox.advancedskyblock.utils.item.ItemUtils;
 import dev.minemalox.advancedskyblock.utils.nifty.ChatFormatting;
-import lombok.Getter;
-import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.util.ITooltipFlag;
@@ -44,19 +42,15 @@ public class InventoryUtils {
     private List<ItemStack> previousInventory;
     private Multimap<String, ItemDiff> itemPickupLog = ArrayListMultimap.create();
 
-    @Setter
     private boolean inventoryWarningShown;
 
     /**
      * Whether the player is wearing a Skeleton Helmet.
      */
-    @Getter
     private boolean wearingSkeletonHelmet;
 
-    @Getter
     private boolean usingToxicArrowPoison;
 
-    @Getter
     private SlayerArmorProgress[] slayerArmorProgresses = new SlayerArmorProgress[4];
 
     private AdvancedSkyblock main;
@@ -316,5 +310,21 @@ public class InventoryUtils {
      */
     public Collection<ItemDiff> getItemPickupLog() {
         return itemPickupLog.values();
+    }
+
+    public boolean isWearingSkeletonHelmet() {
+        return this.wearingSkeletonHelmet;
+    }
+
+    public boolean isUsingToxicArrowPoison() {
+        return this.usingToxicArrowPoison;
+    }
+
+    public SlayerArmorProgress[] getSlayerArmorProgresses() {
+        return this.slayerArmorProgresses;
+    }
+
+    public void setInventoryWarningShown(boolean inventoryWarningShown) {
+        this.inventoryWarningShown = inventoryWarningShown;
     }
 }

@@ -8,9 +8,11 @@ import dev.minemalox.advancedskyblock.utils.EnumUtils;
 import dev.minemalox.advancedskyblock.utils.Feature;
 import dev.minemalox.advancedskyblock.utils.Message;
 import dev.minemalox.advancedskyblock.utils.nifty.ChatFormatting;
-import dev.minemalox.advancedskyblock.utils.nifty.reflection.MinecraftReflection;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.init.SoundEvents;
@@ -61,6 +63,38 @@ public class ColorSelectionGui extends GuiScreen {
         }
     }
 
+    /**
+     * Draws the default text at the top at bottoms of the GUI.
+     *
+     * @param gui The gui to draw the text on.
+     */
+    public void drawDefaultTitleText(GuiScreen gui, int alpha) {
+        int defaultBlue = dev.minemalox.advancedskyblock.AdvancedSkyblock.getInstance().getUtils().getDefaultBlue(alpha);
+
+        drawScaledString(gui, "AdvancedSkyblockGui", 28, defaultBlue, 2.5F, 0);
+        drawScaledString(gui, "v" + dev.minemalox.advancedskyblock.AdvancedSkyblock.VERSION + " by Biscut", 49, defaultBlue, 1.3, 50);
+
+        if (gui instanceof AdvancedSkyblockGui) {
+            drawScaledString(gui, "Special Credits: InventiveTalent - Magma Boss Timer API", gui.height - 22, defaultBlue, 1, 0);
+        }
+    }
+
+    /**
+     * Draws a centered string at the middle of the screen on the x axis, with a specified scale and location.
+     *
+     * @param text    The text to draw.
+     * @param y       The y level to draw the text/
+     * @param color   The text color.
+     * @param scale   The scale to draw the text.
+     * @param xOffset The offset from the center x that the text should be drawn at.
+     */
+    public void drawScaledString(GuiScreen guiScreen, String text, int y, int color, double scale, int xOffset) {
+        GlStateManager.pushMatrix();
+        GlStateManager.scale(scale, scale, 1);
+        drawCenteredString(Minecraft.getMinecraft().fontRenderer, text, (int) Math.round((float) guiScreen.width / 2 / scale) + xOffset, (int) Math.round((float) y / scale), color);
+        GlStateManager.popMatrix();
+    }
+
     @Override
     public void initGui() {
         chromaCheckbox = new CheckBox(mc, width / 2 + 88, 170, 12, "Chroma", false);
@@ -74,7 +108,7 @@ public class ColorSelectionGui extends GuiScreen {
             }
         });
 
-        hexColorField = new GuiTextField(0, (FontRenderer) MinecraftReflection.FontRenderer.getFontRenderer(),
+        hexColorField = new GuiTextField(0, fontRenderer,
                 width / 2 + 110 - 50, 220, 100, 15);
         hexColorField.setMaxStringLength(7);
         hexColorField.setFocused(true);
@@ -122,13 +156,13 @@ public class ColorSelectionGui extends GuiScreen {
         int startColor = new Color(0, 0, 0, 128).getRGB();
         int endColor = new Color(0, 0, 0, 192).getRGB();
         drawGradientRect(0, 0, width, height, startColor, endColor);
-        AdvancedSkyblock.drawDefaultTitleText(this, 255);
+        drawDefaultTitleText(this, 255);
 
         int defaultBlue = dev.minemalox.advancedskyblock.AdvancedSkyblock.getInstance().getUtils().getDefaultBlue(255);
 
         if (feature.getGuiFeatureData() != null) {
             if (feature.getGuiFeatureData().isColorsRestricted()) {
-                AdvancedSkyblock.drawScaledString(this, Message.MESSAGE_CHOOSE_A_COLOR.getMessage(), 90,
+                drawScaledString(this, Message.MESSAGE_CHOOSE_A_COLOR.getMessage(), 90,
                         defaultBlue, 1.5, 0);
 
             } else {
@@ -147,20 +181,20 @@ public class ColorSelectionGui extends GuiScreen {
                 mc.getTextureManager().bindTexture(COLOR_PICKER);
                 Gui.drawModalRectWithCustomSizedTexture(imageX, imageY, 0, 0, pickerWidth, pickerHeight, pickerWidth, pickerHeight);
 
-                AdvancedSkyblock.drawScaledString(this, Message.MESSAGE_SELECTED_COLOR.getMessage(), 120, defaultBlue, 1.5, 75);
+                drawScaledString(this, Message.MESSAGE_SELECTED_COLOR.getMessage(), 120, defaultBlue, 1.5, 75);
                 drawRect(width / 2 + 90, 140, width / 2 + 130, 160, dev.minemalox.advancedskyblock.AdvancedSkyblock.getInstance().getConfigValues().getColor(feature).getRGB());
 
                 if (chromaCheckbox != null) chromaCheckbox.draw();
 
                 if (!dev.minemalox.advancedskyblock.AdvancedSkyblock.getInstance().getConfigValues().getChromaFeatures().contains(feature)) { // Disabled cause chroma is enabled
-                    AdvancedSkyblock.drawScaledString(this, Message.MESSAGE_SET_HEX_COLOR.getMessage(), 200, defaultBlue, 1.5, 75);
+                    drawScaledString(this, Message.MESSAGE_SET_HEX_COLOR.getMessage(), 200, defaultBlue, 1.5, 75);
                     hexColorField.drawTextBox();
                 }
 
                 if (dev.minemalox.advancedskyblock.AdvancedSkyblock.getInstance().getConfigValues().getChromaFeatures().contains(feature)) {
-                    AdvancedSkyblock.drawScaledString(this, Message.SETTING_CHROMA_SPEED.getMessage(), 170 + 25, defaultBlue, 1, 110);
+                    drawScaledString(this, Message.SETTING_CHROMA_SPEED.getMessage(), 170 + 25, defaultBlue, 1, 110);
 
-                    AdvancedSkyblock.drawScaledString(this, Message.SETTING_CHROMA_FADE_WIDTH.getMessage(), 170 + 35 + 25, defaultBlue, 1, 110);
+                    drawScaledString(this, Message.SETTING_CHROMA_FADE_WIDTH.getMessage(), 170 + 35 + 25, defaultBlue, 1, 110);
                 }
             }
         }

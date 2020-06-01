@@ -53,7 +53,7 @@ public class ButtonBanner extends GuiButton {
                     this.width = bannerImage.getWidth();
                     this.height = bannerImage.getHeight();
                 } catch (IOException ex) {
-                    FMLLog.info("[AdvancedSkyblock] Couldn't grab main menu banner image from URL, falling back to local banner.");
+                    FMLLog.info("[AdvancedSkyblockGui] Couldn't grab main menu banner image from URL, falling back to local banner.");
 
                     banner = new ResourceLocation("advancedskyblock", "featuredbanner.png");
                     try {

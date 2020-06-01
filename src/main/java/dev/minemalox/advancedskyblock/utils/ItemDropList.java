@@ -1,7 +1,6 @@
 package dev.minemalox.advancedskyblock.utils;
 
 import dev.minemalox.advancedskyblock.constants.game.Rarity;
-import lombok.Getter;
 
 import java.util.List;
 
@@ -12,7 +11,6 @@ import java.util.List;
  * @author ILikePlayingGames
  * @version 1.0
  */
-@Getter
 class ItemDropList {
     /**
      * Items in the inventory (excluding the hotbar) that are at or above this rarity are prohibited from being dropped/sold
@@ -33,4 +31,20 @@ class ItemDropList {
      * Items with a rarity above the minimum that is allowed to be dropped
      */
     private List<String> allowDroppingTheseItems;
+
+    public Rarity getMinimumInventoryRarity() {
+        return this.minimumInventoryRarity;
+    }
+
+    public Rarity getMinimumHotbarRarity() {
+        return this.minimumHotbarRarity;
+    }
+
+    public List<String> getDontDropTheseItems() {
+        return this.dontDropTheseItems;
+    }
+
+    public List<String> getAllowDroppingTheseItems() {
+        return this.allowDroppingTheseItems;
+    }
 }

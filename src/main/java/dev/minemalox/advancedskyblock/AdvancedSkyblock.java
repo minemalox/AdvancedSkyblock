@@ -7,9 +7,6 @@ import dev.minemalox.advancedskyblock.listeners.PlayerListener;
 import dev.minemalox.advancedskyblock.listeners.RenderListener;
 import dev.minemalox.advancedskyblock.utils.*;
 import dev.minemalox.advancedskyblock.utils.discord.DiscordRPCManager;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.client.ClientCommandHandler;
@@ -27,7 +24,6 @@ import org.lwjgl.input.Keyboard;
 import java.util.Timer;
 import java.util.TimerTask;
 
-@Getter
 @Mod(modid = AdvancedSkyblock.MOD_ID, name = AdvancedSkyblock.MOD_NAME, version = AdvancedSkyblock.VERSION, clientSideOnly = true, acceptedMinecraftVersions = "1.12.2", updateJSON = AdvancedSkyblock.UPDATE_JSON)
 public class AdvancedSkyblock {
 
@@ -35,18 +31,14 @@ public class AdvancedSkyblock {
     public static final String MOD_NAME = "Addons Skyblock";
     public static final String VERSION = "2.0.0-beta1";
     public static final String UPDATE_JSON = "";
-
     /**
      * The main instance of the mod, used mainly by mixins who don't get it passed to them.
      */
-    @Getter
     private static AdvancedSkyblock instance;
-
     /**
      * Get the scheduler that be can be used to easily execute tasks.
      */
     private final Scheduler scheduler = new Scheduler(this);
-
     private ConfigValues configValues;
     private Logger logger;
     private PersistentValues persistentValues;
@@ -56,16 +48,68 @@ public class AdvancedSkyblock {
     private InventoryUtils inventoryUtils;
     private Utils utils;
     private Updater updater;
-
     /**
      * Whether developer mode is enabled.
      */
-    @Setter
     private boolean devMode = true;
-
-    @Setter(AccessLevel.NONE)
     private KeyBinding[] keyBindings = new KeyBinding[4];
     private DiscordRPCManager discordRPCManager;
+
+    public static AdvancedSkyblock getInstance() {
+        return instance;
+    }
+
+    public Scheduler getScheduler() {
+        return scheduler;
+    }
+
+    public PersistentValues getPersistentValues() {
+        return persistentValues;
+    }
+
+    public Utils getUtils() {
+        return utils;
+    }
+
+    public Updater getUpdater() {
+        return updater;
+    }
+
+    public DiscordRPCManager getDiscordRPCManager() {
+        return discordRPCManager;
+    }
+
+    public PlayerListener getPlayerListener() {
+        return playerListener;
+    }
+
+    public GuiScreenListener getGuiScreenListener() {
+        return guiScreenListener;
+    }
+
+    public RenderListener getRenderListener() {
+        return renderListener;
+    }
+
+    public InventoryUtils getInventoryUtils() {
+        return inventoryUtils;
+    }
+
+    public ConfigValues getConfigValues() {
+        return configValues;
+    }
+
+    public Logger getLogger() {
+        return logger;
+    }
+
+    public boolean isDevMode() {
+        return devMode;
+    }
+
+    public void setDevMode(boolean b) {
+        devMode = b;
+    }
 
     /*static {
         //noinspection ConstantConditions
@@ -73,6 +117,10 @@ public class AdvancedSkyblock {
             VERSION = "1.2.3";
         }
     }*/
+
+    private KeyBinding[] getKeyBindings() {
+        return keyBindings;
+    }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent e) {
@@ -134,11 +182,6 @@ public class AdvancedSkyblock {
         }
     }
 
-    @Mod.EventHandler
-    public void stop(FMLModDisabledEvent e) {
-        discordRPCManager.stop();
-    }
-
 
     //private void changeKeyBindDescription(KeyBinding bind, String desc) {
     //    try {
@@ -157,6 +200,11 @@ public class AdvancedSkyblock {
     //    changeKeyBindDescription(keyBindings[2], Message.SETTING_LOCK_SLOT.getMessage());
     //    changeKeyBindDescription(keyBindings[3], Message.SETTING_SHOW_BACKPACK_PREVIEW.getMessage());
     //}
+
+    @Mod.EventHandler
+    public void stop(FMLModDisabledEvent e) {
+        discordRPCManager.stop();
+    }
 
     private void scheduleMagmaCheck() {
         new Timer().schedule(new TimerTask() {

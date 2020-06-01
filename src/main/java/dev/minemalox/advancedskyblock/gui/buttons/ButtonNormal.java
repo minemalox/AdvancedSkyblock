@@ -1,11 +1,10 @@
 package dev.minemalox.advancedskyblock.gui.buttons;
 
-import dev.minemalox.advancedskyblock.gui.AdvancedSkyblock;
+import dev.minemalox.advancedskyblock.gui.AdvancedSkyblockGui;
 import dev.minemalox.advancedskyblock.utils.CoordsPair;
 import dev.minemalox.advancedskyblock.utils.EnumUtils;
 import dev.minemalox.advancedskyblock.utils.Feature;
 import dev.minemalox.advancedskyblock.utils.Message;
-import dev.minemalox.advancedskyblock.utils.nifty.reflection.MinecraftReflection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.renderer.GlStateManager;
@@ -91,8 +90,8 @@ public class ButtonNormal extends ButtonFeature {
                 String line = wrappedString[i];
 
                 float scale = 1;
-                int stringWidth = MinecraftReflection.FontRenderer.getStringWidth(line);
-                float widthLimit = AdvancedSkyblock.BUTTON_MAX_WIDTH - 10;
+                int stringWidth = Minecraft.getMinecraft().fontRenderer.getStringWidth(line);
+                float widthLimit = AdvancedSkyblockGui.BUTTON_MAX_WIDTH - 10;
                 if (feature == Feature.WARNING_TIME) {
                     widthLimit = 90;
                 }
@@ -106,7 +105,7 @@ public class ButtonNormal extends ButtonFeature {
                 int offset = 9;
                 if (creditFeature != null) offset -= 4;
                 offset += (10 - 10 * scale); // If the scale is small gotta move it down a bit or else its too mushed with the above line.
-                MinecraftReflection.FontRenderer.drawCenteredString(line, (textX / scale), (textY / scale) + offset, fontColor);
+                drawCenteredString(Minecraft.getMinecraft().fontRenderer, line, (int) (textX / scale), (int) (textY / scale) + offset, fontColor);
                 GlStateManager.popMatrix();
 
                 // If its not the last line, add to the Y.
@@ -127,7 +126,7 @@ public class ButtonNormal extends ButtonFeature {
 
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(scale, scale, 1);
-                MinecraftReflection.FontRenderer.drawCenteredString(creditFeature.getAuthor(), (textX / scale), creditsY, fontColor);
+                drawCenteredString(Minecraft.getMinecraft().fontRenderer, creditFeature.getAuthor(), (int) (textX / scale), (int) creditsY, fontColor);
                 GlStateManager.disableBlend();
                 GlStateManager.popMatrix();
             }
@@ -154,7 +153,7 @@ public class ButtonNormal extends ButtonFeature {
             }
 
             if (main.getConfigValues().isRemoteDisabled(feature)) {
-                MinecraftReflection.FontRenderer.drawCenteredString(Message.MESSAGE_FEATURE_DISABLED.getMessage(), textX, textY + 6, main.getUtils().getDefaultBlue(alpha));
+                drawCenteredString(Minecraft.getMinecraft().fontRenderer, Message.MESSAGE_FEATURE_DISABLED.getMessage(), textX, textY + 6, main.getUtils().getDefaultBlue(alpha));
             }
         }
     }
@@ -174,7 +173,7 @@ public class ButtonNormal extends ButtonFeature {
             y += 10;
         }
 
-        int x = (int) ((this.x + width / 2) / scale) - MinecraftReflection.FontRenderer.getStringWidth(credit.getAuthor()) / 2 - 17;
+        int x = (int) ((this.x + width / 2) / scale) - Minecraft.getMinecraft().fontRenderer.getStringWidth(credit.getAuthor()) / 2 - 17;
         return new CoordsPair(x, y);
     }
 

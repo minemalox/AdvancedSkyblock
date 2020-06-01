@@ -48,6 +48,38 @@ public class SettingsGui extends GuiScreen {
         this.settings = settings;
     }
 
+    /**
+     * Draws the default text at the top at bottoms of the GUI.
+     *
+     * @param gui The gui to draw the text on.
+     */
+    public void drawDefaultTitleText(GuiScreen gui, int alpha) {
+        int defaultBlue = dev.minemalox.advancedskyblock.AdvancedSkyblock.getInstance().getUtils().getDefaultBlue(alpha);
+
+        drawScaledString(gui, "AdvancedSkyblockGui", 28, defaultBlue, 2.5F, 0);
+        drawScaledString(gui, "v" + dev.minemalox.advancedskyblock.AdvancedSkyblock.VERSION + " by Biscut", 49, defaultBlue, 1.3, 50);
+
+        if (gui instanceof AdvancedSkyblockGui) {
+            drawScaledString(gui, "Special Credits: InventiveTalent - Magma Boss Timer API", gui.height - 22, defaultBlue, 1, 0);
+        }
+    }
+
+    /**
+     * Draws a centered string at the middle of the screen on the x axis, with a specified scale and location.
+     *
+     * @param text    The text to draw.
+     * @param y       The y level to draw the text/
+     * @param color   The text color.
+     * @param scale   The scale to draw the text.
+     * @param xOffset The offset from the center x that the text should be drawn at.
+     */
+    public void drawScaledString(GuiScreen guiScreen, String text, int y, int color, double scale, int xOffset) {
+        GlStateManager.pushMatrix();
+        GlStateManager.scale(scale, scale, 1);
+        drawCenteredString(Minecraft.getMinecraft().fontRenderer, text, (int) Math.round((float) guiScreen.width / 2 / scale) + xOffset, (int) Math.round((float) y / scale), color);
+        GlStateManager.popMatrix();
+    }
+
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")
     @Override
     public void initGui() {
@@ -116,7 +148,7 @@ public class SettingsGui extends GuiScreen {
         if (alpha < 4) alpha = 4; // Text under 4 alpha appear 100% transparent for some reason o.O
         int defaultBlue = main.getUtils().getDefaultBlue(alpha * 2);
 
-        AdvancedSkyblock.drawDefaultTitleText(this, alpha * 2);
+        drawDefaultTitleText(this, alpha * 2);
 
         if (feature != Feature.LANGUAGE) {
             mc.getTextureManager().bindTexture(FEATURE_BACKGROUND);
@@ -130,7 +162,7 @@ public class SettingsGui extends GuiScreen {
             GlStateManager.enableBlend();
             GlStateManager.color(1, 1, 1, 0.7F);
             drawModalRectWithCustomSizedTexture(x, y, 0, 0, width, height, width, height);
-            AdvancedSkyblock.drawScaledString(this, Message.SETTING_SETTINGS.getMessage(), 110, defaultBlue, 1.5, 0);
+            drawScaledString(this, Message.SETTING_SETTINGS.getMessage(), 110, defaultBlue, 1.5, 0);
         }
         super.drawScreen(mouseX, mouseY, partialTicks); // Draw buttons.
         if (feature == Feature.LANGUAGE) {
@@ -151,7 +183,7 @@ public class SettingsGui extends GuiScreen {
             returnToGui();
         } else if (abstractButton instanceof ButtonSwitchTab) {
             ButtonSwitchTab tab = (ButtonSwitchTab) abstractButton;
-            mc.displayGuiScreen(new AdvancedSkyblock(main, 1, tab.getTab()));
+            mc.displayGuiScreen(new AdvancedSkyblockGui(main, 1, tab.getTab()));
         } else if (abstractButton instanceof ButtonOpenColorMenu) {
             closingGui = true;
             mc.displayGuiScreen(new ColorSelectionGui(feature, EnumUtils.GUIType.SETTINGS, lastTab, lastPage));

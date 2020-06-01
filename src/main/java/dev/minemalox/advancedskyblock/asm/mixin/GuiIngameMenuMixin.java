@@ -17,7 +17,7 @@ import java.io.IOException;
 @Mixin(GuiIngameMenu.class)
 public class GuiIngameMenuMixin extends GuiScreen {
 
-    @Inject(method = "actionPerformed(Lnet/minecraft/client/gui/GuiButton;)V", at = @At(value = "JUMP", target = "L2", shift = At.Shift.AFTER))
+    @Inject(method = "actionPerformed(Lnet/minecraft/client/gui/GuiButton;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;isIntegratedServerRunning()Z", shift = At.Shift.BEFORE))
     protected void actionPerformed(GuiButton button, CallbackInfo callbackInfo) throws IOException {
         DiscordRPCManager discordRPCManager = AdvancedSkyblock.getInstance().getDiscordRPCManager();
         if (discordRPCManager.isActive()) {
@@ -38,7 +38,7 @@ public class GuiIngameMenuMixin extends GuiScreen {
         AdvancedSkyblock main = AdvancedSkyblock.getInstance();
 
         if (main.getUtils().isOnSkyblock() && main.getConfigValues().isEnabled(Feature.ADVANCED_SKYBLOCK_BUTTON_IN_PAUSE_MENU)) {
-            buttonList.add(new GuiButton(53, width - 120 - 5, height - 20 - 5, 120, 20, "AdvancedSkyblock Menu"));
+            buttonList.add(new GuiButton(53, width - 120 - 5, height - 20 - 5, 120, 20, "AdvancedSkyblockGui Menu"));
         }
     }
 

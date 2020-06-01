@@ -8,7 +8,6 @@ import dev.minemalox.advancedskyblock.utils.Feature;
 import dev.minemalox.advancedskyblock.utils.Message;
 import dev.minemalox.advancedskyblock.utils.nifty.ChatFormatting;
 import dev.minemalox.advancedskyblock.utils.nifty.StringUtil;
-import dev.minemalox.advancedskyblock.utils.nifty.reflection.MinecraftReflection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -25,7 +24,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AdvancedSkyblock extends GuiScreen {
+public class AdvancedSkyblockGui extends GuiScreen {
 
     public static final int BUTTON_MAX_WIDTH = 140;
 //    private static Feature tooltipFeature;
@@ -48,13 +47,13 @@ public class AdvancedSkyblock extends GuiScreen {
     /**
      * The main gui, opened with /sba.
      */
-    public AdvancedSkyblock(dev.minemalox.advancedskyblock.AdvancedSkyblock main, int page, EnumUtils.GuiTab tab) {
+    public AdvancedSkyblockGui(dev.minemalox.advancedskyblock.AdvancedSkyblock main, int page, EnumUtils.GuiTab tab) {
         this.tab = tab;
         this.main = main;
         this.page = page;
     }
 
-    public AdvancedSkyblock(dev.minemalox.advancedskyblock.AdvancedSkyblock main, int page, EnumUtils.GuiTab tab, String text) {
+    public AdvancedSkyblockGui(dev.minemalox.advancedskyblock.AdvancedSkyblock main, int page, EnumUtils.GuiTab tab, String text) {
         this(main, page, tab);
     }
 
@@ -63,13 +62,13 @@ public class AdvancedSkyblock extends GuiScreen {
      *
      * @param gui The gui to draw the text on.
      */
-    static void drawDefaultTitleText(GuiScreen gui, int alpha) {
+    public void drawDefaultTitleText(GuiScreen gui, int alpha) {
         int defaultBlue = dev.minemalox.advancedskyblock.AdvancedSkyblock.getInstance().getUtils().getDefaultBlue(alpha);
 
-        drawScaledString(gui, "AdvancedSkyblock", 28, defaultBlue, 2.5F, 0);
+        drawScaledString(gui, "AdvancedSkyblockGui", 28, defaultBlue, 2.5F, 0);
         drawScaledString(gui, "v" + dev.minemalox.advancedskyblock.AdvancedSkyblock.VERSION + " by Biscut", 49, defaultBlue, 1.3, 50);
 
-        if (gui instanceof AdvancedSkyblock) {
+        if (gui instanceof AdvancedSkyblockGui) {
             drawScaledString(gui, "Special Credits: InventiveTalent - Magma Boss Timer API", gui.height - 22, defaultBlue, 1, 0);
         }
     }
@@ -83,11 +82,10 @@ public class AdvancedSkyblock extends GuiScreen {
      * @param scale   The scale to draw the text.
      * @param xOffset The offset from the center x that the text should be drawn at.
      */
-    static void drawScaledString(GuiScreen guiScreen, String text, int y, int color, double scale, int xOffset) {
+    public void drawScaledString(GuiScreen guiScreen, String text, int y, int color, double scale, int xOffset) {
         GlStateManager.pushMatrix();
         GlStateManager.scale(scale, scale, 1);
-        MinecraftReflection.FontRenderer.drawCenteredString(text, Math.round((float) guiScreen.width / 2 / scale) + xOffset,
-                Math.round((float) y / scale), color);
+        drawCenteredString(Minecraft.getMinecraft().fontRenderer, text, (int) Math.round((float) guiScreen.width / 2 / scale) + xOffset, (int) Math.round((float) y / scale), color);
         GlStateManager.popMatrix();
     }
 
@@ -219,7 +217,7 @@ public class AdvancedSkyblock extends GuiScreen {
 
         featureSearchBar.drawTextBox();
         if (StringUtil.isEmpty(featureSearchBar.getText())) {
-            MinecraftReflection.FontRenderer.drawString(Message.MESSAGE_SEARCH_FEATURES.getMessage(), width / 2 - 60 + 4, 72, ChatFormatting.DARK_GRAY);
+            drawString(Minecraft.getMinecraft().fontRenderer, Message.MESSAGE_SEARCH_FEATURES.getMessage(), width / 2 - 60 + 4, 72, ChatFormatting.DARK_GRAY.getCode());
         }
 
         super.drawScreen(mouseX, mouseY, partialTicks); // Draw buttons.
@@ -246,10 +244,10 @@ public class AdvancedSkyblock extends GuiScreen {
             } else if (feature == Feature.GENERAL_SETTINGS) {
                 if (tab == EnumUtils.GuiTab.GENERAL_SETTINGS) {
                     main.getUtils().setFadingIn(false);
-                    Minecraft.getMinecraft().displayGuiScreen(new AdvancedSkyblock(main, 1, EnumUtils.GuiTab.MAIN, featureSearchBar.getText()));
+                    Minecraft.getMinecraft().displayGuiScreen(new AdvancedSkyblockGui(main, 1, EnumUtils.GuiTab.MAIN, featureSearchBar.getText()));
                 } else {
                     main.getUtils().setFadingIn(false);
-                    Minecraft.getMinecraft().displayGuiScreen(new AdvancedSkyblock(main, 1, EnumUtils.GuiTab.GENERAL_SETTINGS, featureSearchBar.getText()));
+                    Minecraft.getMinecraft().displayGuiScreen(new AdvancedSkyblockGui(main, 1, EnumUtils.GuiTab.GENERAL_SETTINGS, featureSearchBar.getText()));
                 }
             } else if (abstractButton instanceof ButtonToggle) {
                 if (main.getConfigValues().isRemoteDisabled(feature)) return;
@@ -276,12 +274,12 @@ public class AdvancedSkyblock extends GuiScreen {
                 if (feature == Feature.TEXT_STYLE) {
                     main.getConfigValues().setTextStyle(main.getConfigValues().getTextStyle().getNextType());
                     cancelClose = true;
-                    Minecraft.getMinecraft().displayGuiScreen(new AdvancedSkyblock(main, page, tab, featureSearchBar.getText()));
+                    Minecraft.getMinecraft().displayGuiScreen(new AdvancedSkyblockGui(main, page, tab, featureSearchBar.getText()));
                     cancelClose = false;
                 } else if (feature == Feature.CHROMA_MODE) {
                     main.getConfigValues().setChromaMode(main.getConfigValues().getChromaMode().getNextType());
                     cancelClose = true;
-                    Minecraft.getMinecraft().displayGuiScreen(new AdvancedSkyblock(main, page, tab, featureSearchBar.getText()));
+                    Minecraft.getMinecraft().displayGuiScreen(new AdvancedSkyblockGui(main, page, tab, featureSearchBar.getText()));
                     cancelClose = false;
                 }
             } else if (abstractButton instanceof ButtonModify) {
@@ -307,16 +305,16 @@ public class AdvancedSkyblock extends GuiScreen {
             if (arrow.isNotMax()) {
                 main.getUtils().setFadingIn(false);
                 if (arrow.getArrowType() == ButtonArrow.ArrowType.RIGHT) {
-                    mc.displayGuiScreen(new AdvancedSkyblock(main, ++page, tab, featureSearchBar.getText()));
+                    mc.displayGuiScreen(new AdvancedSkyblockGui(main, ++page, tab, featureSearchBar.getText()));
                 } else {
-                    mc.displayGuiScreen(new AdvancedSkyblock(main, --page, tab, featureSearchBar.getText()));
+                    mc.displayGuiScreen(new AdvancedSkyblockGui(main, --page, tab, featureSearchBar.getText()));
                 }
             }
         } else if (abstractButton instanceof ButtonSwitchTab) {
             ButtonSwitchTab tab = (ButtonSwitchTab) abstractButton;
             if (tab.getTab() != this.tab) {
                 main.getUtils().setFadingIn(false);
-                mc.displayGuiScreen(new AdvancedSkyblock(main, 1, tab.getTab(), featureSearchBar.getText()));
+                mc.displayGuiScreen(new AdvancedSkyblockGui(main, 1, tab.getTab(), featureSearchBar.getText()));
             }
         } else if (abstractButton instanceof ButtonSocial) {
             EnumUtils.Social social = ((ButtonSocial) abstractButton).getSocial();

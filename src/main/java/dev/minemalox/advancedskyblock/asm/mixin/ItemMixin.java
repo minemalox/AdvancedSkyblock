@@ -25,7 +25,7 @@ public class ItemMixin {
         return itemStack.isItemDamaged();
     }
 
-    @Inject(method = "getDurabilityForDisplay(Lnet/minecraft/item/ItemStack;)D", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getDurabilityForDisplay(Lnet/minecraft/item/ItemStack;)D", at = @At("HEAD"), cancellable = true, remap = false)
     public void getDurabilityForDisplay(ItemStack stack, CallbackInfoReturnable<Double> callbackInfoReturnable) {
         AdvancedSkyblock main = AdvancedSkyblock.getInstance();
         if (main.getUtils().isOnSkyblock() && main.getConfigValues().isEnabled(Feature.SHOW_ITEM_COOLDOWNS)) {

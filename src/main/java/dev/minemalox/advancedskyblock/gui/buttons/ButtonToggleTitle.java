@@ -2,7 +2,6 @@ package dev.minemalox.advancedskyblock.gui.buttons;
 
 import dev.minemalox.advancedskyblock.AdvancedSkyblock;
 import dev.minemalox.advancedskyblock.utils.Feature;
-import dev.minemalox.advancedskyblock.utils.nifty.reflection.MinecraftReflection;
 import net.minecraft.client.Minecraft;
 
 public class ButtonToggleTitle extends ButtonToggle {
@@ -19,6 +18,6 @@ public class ButtonToggleTitle extends ButtonToggle {
     public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
         super.drawButton(mc, mouseX, mouseY, partialTicks);
         int fontColor = main.getUtils().getDefaultBlue(255);
-        MinecraftReflection.FontRenderer.drawCenteredString(displayString, x + width / 2, y - 10, fontColor);
+        drawCenteredString(Minecraft.getMinecraft().fontRenderer, displayString, x + width / 2, y - 10, fontColor);
     }
 }

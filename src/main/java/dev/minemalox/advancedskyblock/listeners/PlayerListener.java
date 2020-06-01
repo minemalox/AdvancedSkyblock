@@ -5,8 +5,6 @@ import dev.minemalox.advancedskyblock.utils.*;
 import dev.minemalox.advancedskyblock.utils.dev.DevUtils;
 import dev.minemalox.advancedskyblock.utils.item.ItemUtils;
 import dev.minemalox.advancedskyblock.utils.nifty.ChatFormatting;
-import lombok.Getter;
-import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiScreen;
@@ -82,29 +80,35 @@ public class PlayerListener {
     private long lastFishingAlert = 0;
     private long lastBobberEnteredWater = Long.MAX_VALUE;
     private long lastSkyblockServerJoinAttempt = 0;
-    @Getter
     private long rainmakerTimeEnd = -1;
     private boolean oldBobberIsInWater = false;
     private double oldBobberPosY = 0;
     private Set<UUID> countedEndermen = new HashSet<>();
-    @Getter
     private Set<CoordsPair> recentlyLoadedChunks = new HashSet<>();
-    @Getter
-    @Setter
     private EnumUtils.MagmaTimerAccuracy magmaAccuracy = EnumUtils.MagmaTimerAccuracy.NO_DATA;
-    @Getter
-    @Setter
     private int magmaTime = 0;
-    @Getter
-    @Setter
     private int recentMagmaCubes = 0;
-    @Getter
-    @Setter
     private int recentBlazes = 0;
 
     public PlayerListener(AdvancedSkyblock main) {
         this.main = main;
         actionBarParser = new ActionBarParser(main);
+    }
+
+    public long getRainmakerTimeEnd() {
+        return rainmakerTimeEnd;
+    }
+
+    public Set<CoordsPair> getRecentlyLoadedChunks() {
+        return recentlyLoadedChunks;
+    }
+
+    public EnumUtils.MagmaTimerAccuracy getMagmaAccuracy() {
+        return magmaAccuracy;
+    }
+
+    public void setMagmaAccuracy(EnumUtils.MagmaTimerAccuracy magmaAccuracy) {
+        this.magmaAccuracy = magmaAccuracy;
     }
 
     /**
@@ -777,5 +781,29 @@ public class PlayerListener {
 
     Integer getHealthUpdate() {
         return actionBarParser.getHealthUpdate();
+    }
+
+    public int getMagmaTime() {
+        return this.magmaTime;
+    }
+
+    public void setMagmaTime(int magmaTime) {
+        this.magmaTime = magmaTime;
+    }
+
+    public int getRecentMagmaCubes() {
+        return this.recentMagmaCubes;
+    }
+
+    public void setRecentMagmaCubes(int recentMagmaCubes) {
+        this.recentMagmaCubes = recentMagmaCubes;
+    }
+
+    public int getRecentBlazes() {
+        return this.recentBlazes;
+    }
+
+    public void setRecentBlazes(int recentBlazes) {
+        this.recentBlazes = recentBlazes;
     }
 }

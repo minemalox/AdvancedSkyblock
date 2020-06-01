@@ -4,7 +4,6 @@ import dev.minemalox.advancedskyblock.AdvancedSkyblock;
 import dev.minemalox.advancedskyblock.utils.CraftingPattern;
 import dev.minemalox.advancedskyblock.utils.Utils;
 import dev.minemalox.advancedskyblock.utils.nifty.ChatFormatting;
-import dev.minemalox.advancedskyblock.utils.nifty.reflection.MinecraftReflection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.init.SoundEvents;
@@ -56,7 +55,7 @@ public class CheckBox {
         this.y = y;
         this.scale = (float) size / (float) ICON_SIZE;
         this.text = text;
-        this.textWidth = MinecraftReflection.FontRenderer.getStringWidth(text);
+        this.textWidth = Minecraft.getMinecraft().fontRenderer.getStringWidth(text);
         this.size = size;
     }
 

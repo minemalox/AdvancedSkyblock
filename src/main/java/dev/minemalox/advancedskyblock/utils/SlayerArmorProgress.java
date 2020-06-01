@@ -1,12 +1,10 @@
 package dev.minemalox.advancedskyblock.utils;
 
 import dev.minemalox.advancedskyblock.utils.nifty.ChatFormatting;
-import lombok.Getter;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 
-@Getter
 public class SlayerArmorProgress {
 
     /**
@@ -17,13 +15,11 @@ public class SlayerArmorProgress {
     /**
      * The current slayer progress % of the item.
      */
-    @Getter
     private String percent;
 
     /**
      * The current slayer defence reward of the item.
      */
-    @Getter
     private String defence;
 
     public SlayerArmorProgress(ItemStack itemStack) {
@@ -46,11 +42,23 @@ public class SlayerArmorProgress {
         }
     }
 
-    public void setDefence(String defence) {
-        this.defence = defence;
+    public ItemStack getItemStack() {
+        return this.itemStack;
+    }
+
+    public String getPercent() {
+        return this.percent;
     }
 
     public void setPercent(String percent) {
         this.percent = percent;
+    }
+
+    public String getDefence() {
+        return this.defence;
+    }
+
+    public void setDefence(String defence) {
+        this.defence = defence;
     }
 }

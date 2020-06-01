@@ -5,7 +5,6 @@ import dev.minemalox.advancedskyblock.gui.elements.CraftingPatternSelection;
 import dev.minemalox.advancedskyblock.utils.*;
 import dev.minemalox.advancedskyblock.utils.nifty.ChatFormatting;
 import dev.minemalox.advancedskyblock.utils.nifty.StringUtil;
-import dev.minemalox.advancedskyblock.utils.nifty.reflection.MinecraftReflection;
 import dev.minemalox.advancedskyblock.utils.npc.NPCUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -113,11 +112,11 @@ public abstract class GuiChestMixin extends GuiContainer {
 
             textFieldMatch.drawTextBox();
             if (StringUtil.isEmpty(textFieldMatch.getText())) {
-                MinecraftReflection.FontRenderer.drawString("ex. \"prot, feather\"", x + 4, guiTop + 86, ChatFormatting.DARK_GRAY);
+                drawString(Minecraft.getMinecraft().fontRenderer, "ex. \"prot, feather\"", x + 4, guiTop + 86, ChatFormatting.DARK_GRAY.getCode());
             }
             textFieldExclusions.drawTextBox();
             if (StringUtil.isEmpty(textFieldExclusions.getText())) {
-                MinecraftReflection.FontRenderer.drawString("ex. \"proj, blast\"", x + 4, guiTop + 126, ChatFormatting.DARK_GRAY);
+                drawString(Minecraft.getMinecraft().fontRenderer, "ex. \"proj, blast\"", x + 4, guiTop + 126, ChatFormatting.DARK_GRAY.getCode());
             }
         }
     }

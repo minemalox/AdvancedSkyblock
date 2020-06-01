@@ -4,12 +4,10 @@ import com.google.common.collect.Sets;
 import dev.minemalox.advancedskyblock.AdvancedSkyblock;
 import dev.minemalox.advancedskyblock.gui.buttons.ButtonLocation;
 import dev.minemalox.advancedskyblock.utils.nifty.ChatFormatting;
-import lombok.Getter;
 import net.minecraft.client.Minecraft;
 
 import java.util.*;
 
-@Getter
 @SuppressWarnings({"DeprecatedIsStillUsed"})
 public enum Feature {
 
@@ -139,7 +137,6 @@ public enum Feature {
      * Features that are considered gui ones. This is used for examnple when saving the config to ensure that these features'
      * coordinates and colors are handled properly.
      */
-    @Getter
     private static Set<Feature> guiFeatures = new LinkedHashSet<>(Arrays.asList(MAGMA_BOSS_TIMER, MANA_BAR, MANA_TEXT, DEFENCE_ICON, DEFENCE_TEXT,
             DEFENCE_PERCENTAGE, HEALTH_BAR, HEALTH_TEXT, SKELETON_BAR, HEALTH_UPDATES, ITEM_PICKUP_LOG, DARK_AUCTION_TIMER, SKILL_DISPLAY, SPEED_PERCENTAGE, SLAYER_INDICATOR,
             POWER_ORB_STATUS_DISPLAY, ZEALOT_COUNTER, TICKER_CHARGES_DISPLAY, TAB_EFFECT_TIMERS, SHOW_TOTAL_ZEALOT_COUNT, SHOW_SUMMONING_EYE_COUNT,
@@ -147,7 +144,6 @@ public enum Feature {
     /**
      * These are features that are displayed separate, on the general tab.
      */
-    @Getter
     private static Set<Feature> generalTabFeatures = new LinkedHashSet<>(Arrays.asList(TEXT_STYLE, WARNING_TIME, CHROMA_SPEED, CHROMA_MODE, CHROMA_FADE_WIDTH));
 
     private int id;
@@ -175,6 +171,14 @@ public enum Feature {
             }
         }
         return null;
+    }
+
+    public static Set<Feature> getGuiFeatures() {
+        return Feature.guiFeatures;
+    }
+
+    public static Set<Feature> getGeneralTabFeatures() {
+        return Feature.generalTabFeatures;
     }
 
     public boolean isActualFeature() {
@@ -250,5 +254,21 @@ public enum Feature {
 
     public boolean isNew() {
         return id > ID_AT_PREVIOUS_UPDATE;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public List<EnumUtils.FeatureSetting> getSettings() {
+        return this.settings;
+    }
+
+    public GuiFeatureData getGuiFeatureData() {
+        return this.guiFeatureData;
+    }
+
+    public boolean isDefaultDisabled() {
+        return this.defaultDisabled;
     }
 }

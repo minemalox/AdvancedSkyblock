@@ -2,8 +2,6 @@ package dev.minemalox.advancedskyblock.utils;
 
 import dev.minemalox.advancedskyblock.AdvancedSkyblock;
 import dev.minemalox.advancedskyblock.utils.item.ItemUtils;
-import lombok.Getter;
-import lombok.Setter;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -24,14 +22,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Getter
 public class Backpack {
 
     private static final Pattern BACKPACK_ID_PATTERN = Pattern.compile("([A-Z]+)_BACKPACK");
 
-    @Setter
     private int x;
-    @Setter
     private int y;
     private ItemStack[] items;
     private String backpackName;
@@ -167,5 +162,33 @@ public class Backpack {
             }
         }
         return null;
+    }
+
+    public int getX() {
+        return this.x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public ItemStack[] getItems() {
+        return this.items;
+    }
+
+    public String getBackpackName() {
+        return this.backpackName;
+    }
+
+    public BackpackColor getBackpackColor() {
+        return this.backpackColor;
     }
 }

@@ -1,8 +1,5 @@
 package dev.minemalox.advancedskyblock.utils;
 
-import lombok.Getter;
-
-@Getter
 public class EnchantPair {
 
     private float x;
@@ -13,5 +10,17 @@ public class EnchantPair {
         this.x = x;
         this.y = y;
         this.enchant = enchant;
+    }
+
+    public float getX() {
+        return this.x;
+    }
+
+    public float getY() {
+        return this.y;
+    }
+
+    public String getEnchant() {
+        return this.enchant;
     }
 }

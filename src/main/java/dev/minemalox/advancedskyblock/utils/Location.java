@@ -1,14 +1,12 @@
 package dev.minemalox.advancedskyblock.utils;
 
 import com.google.common.collect.Sets;
-import lombok.Getter;
 
 import java.util.Set;
 
 /**
  * Contains all of the Skyblock locations (I hope).
  */
-@Getter
 public enum Location {
     ISLAND("Your Island"), // TODO RPC
 
@@ -95,5 +93,9 @@ public enum Location {
         }
 
         return name().toLowerCase().replace("_", "-");
+    }
+
+    public String getScoreboardName() {
+        return this.scoreboardName;
     }
 }
