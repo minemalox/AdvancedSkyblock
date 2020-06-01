@@ -1,3 +1,6 @@
+import groovy.json.JsonBuilder
+import groovy.json.JsonSlurper
+
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
@@ -124,3 +127,27 @@ task processResourcesDev(type: Copy) {
     into(sourceSets.main.java.outputDir)
 }
 
+// Updates the version JSON file automatically when the version changes
+// Don't forget to write the changelog! Those aren't automatic.
+task updateVersionsFile {
+    def versionsFile = new File(".github/versions/dev-versions.json")
+
+    def jsonBuilder = new JsonBuilder(new JsonSlurper().parse(versionsFile))
+    def versionsMap = jsonBuilder.content."1.12.2"
+
+    if (versionsMap != null) {
+        jsonBuilder.content.promos."1.12.2-latest" = project.version.toString()
+
+        // Update the versions list if it doesn't have the current version.
+        if (!versionsMap.containsKey(project.version)) {
+            versionsMap.put(project.version, "First 1.12.2 release!")
+            versionsMap = versionsMap.sort(Comparator.reverseOrder())
+            jsonBuilder.content."1.12.2" = versionsMap
+        }
+
+        versionsFile.write(jsonBuilder.toPrettyString())
+    }
+
+}
+
+tasks.build.dependsOn(updateVersionsFile)
