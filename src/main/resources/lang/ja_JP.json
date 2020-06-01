@@ -106,7 +106,7 @@
     "chromaFadeWidth": "Chroma Fade Width",
     "sortTabEffectTimers": "Sort Timers by Duration",
     "showBrokenFragments": "壊れたドラゴンフラグメントを表示する",
-    "skyblockAddonsButtonInPauseMenu": "ポーズメニューにSBAボタンを表示する",
+    "advancedSkyblockButtonInPauseMenu": "ポーズメニューにSBAボタンを表示する",
     "showTotalZealotCount": "Zealotカウンター - Zealotの合計",
     "showSummoningEyeCount": "Zealotカウンター - アイの合計",
     "showZealotsPerEye": "Zealotカウンター - アイ1つあたりのZealotキル数を表示する",

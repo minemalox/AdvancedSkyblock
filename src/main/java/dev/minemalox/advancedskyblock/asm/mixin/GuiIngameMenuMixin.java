@@ -38,7 +38,7 @@ public class GuiIngameMenuMixin extends GuiScreen {
         AdvancedSkyblock main = AdvancedSkyblock.getInstance();
 
         if (main.getUtils().isOnSkyblock() && main.getConfigValues().isEnabled(Feature.ADVANCED_SKYBLOCK_BUTTON_IN_PAUSE_MENU)) {
-            buttonList.add(new GuiButton(53, width - 120 - 5, height - 20 - 5, 120, 20, "AdvancedSkyblockGui Menu"));
+            buttonList.add(new GuiButton(53, width - 130 - 5, height - 20 - 5, 130, 20, "AdvancedSkyblock Menu"));
         }
     }
 

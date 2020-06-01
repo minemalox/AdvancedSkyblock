@@ -65,8 +65,8 @@ public class AdvancedSkyblockGui extends GuiScreen {
     public void drawDefaultTitleText(GuiScreen gui, int alpha) {
         int defaultBlue = dev.minemalox.advancedskyblock.AdvancedSkyblock.getInstance().getUtils().getDefaultBlue(alpha);
 
-        drawScaledString(gui, "AdvancedSkyblockGui", 28, defaultBlue, 2.5F, 0);
-        drawScaledString(gui, "v" + dev.minemalox.advancedskyblock.AdvancedSkyblock.VERSION + " by Biscut", 49, defaultBlue, 1.3, 50);
+        drawScaledString(gui, "AdvancedSkyblock", 28, defaultBlue, 2.5F, 0);
+        drawScaledString(gui, "v" + dev.minemalox.advancedskyblock.AdvancedSkyblock.VERSION + " by MineMalox", 49, defaultBlue, 1.3, 50);
 
         if (gui instanceof AdvancedSkyblockGui) {
             drawScaledString(gui, "Special Credits: InventiveTalent - Magma Boss Timer API", gui.height - 22, defaultBlue, 1, 0);
@@ -97,11 +97,14 @@ public class AdvancedSkyblockGui extends GuiScreen {
         displayCount = findDisplayCount();
         addLanguageButton();
         addEditLocationsButton();
-        addFeaturedBanner();
+        // addFeaturedBanner();
         addGeneralSettingsButton();
 
         if (featureSearchBar == null) {
             featureSearchBar = new GuiTextField(2, this.fontRenderer, width / 2 - 60, 69, 120, 15);
+
+            // buttonList.add(new ButtonBanner(halfWidth - 170, 15, main));
+
             featureSearchBar.setMaxStringLength(500);
             featureSearchBar.setFocused(true);
         }

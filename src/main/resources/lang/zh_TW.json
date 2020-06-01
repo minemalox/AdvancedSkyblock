@@ -106,7 +106,7 @@
     "chromaFadeWidth": "彩色淡入淡出幅度",
     "sortTabEffectTimers": "按時長排序計時器",
     "showBrokenFragments": "顯示無法使用的龍裝碎片",
-    "skyblockAddonsButtonInPauseMenu": "在暫停畫面中顯示SBA按鈕",
+    "advancedSkyblockButtonInPauseMenu": "在暫停畫面中顯示SBA按鈕",
     "showTotalZealotCount": "Zealot計數器 - 總Zealot擊殺數",
     "showSummoningEyeCount": "Zealot計數器 - 總眼睛數",
     "showZealotsPerEye": "Zealot計數器 - 每眼睛所需Zealot數",
