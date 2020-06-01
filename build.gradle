@@ -36,6 +36,7 @@ minecraft {
 
     accessTransformer = file('src/main/resources/META-INF/advancedskyblock_at.cfg')
 
+
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
     runs {
@@ -50,8 +51,6 @@ minecraft {
 
             // Load the coremod during development
             property 'fml.coreMods.load', 'dev.minemalox.advancedskyblock.AdvancedSkyblockLoadingPlugin'
-
-            ideaModule "${project.name}.main"
         }
 
     }

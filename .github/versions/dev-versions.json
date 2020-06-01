@@ -1,9 +1,10 @@
 {
     "homepage": "https://github.com/minemalox/AdvancedSkyblock/releases",
     "promos": {
-        "1.12.2-latest": "2.0.0-beta.1"
+        "1.12.2-latest": "2.0.0-beta.2"
     },
     "1.12.2": {
+        "2.0.0-beta.2": "First 1.12.2 release!",
         "2.0.0-beta.1": "First 1.12.2 release!"
     }
 }
